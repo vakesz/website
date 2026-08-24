@@ -2,12 +2,12 @@
 # Edit this site at https://app.pagescms.org after installing the GitHub app.
 
 media:
-  # Default media folder for in-body images. Stored under /img/, written
-  # into content as absolute URLs (e.g. /img/foo.webp).
+  # Default media folder for in-body images. Goes through Astro's image()
+  # pipeline. Written as relative paths from src/content/posts.
   - name: content
     label: Content images
-    input: public/img
-    output: /img
+    input: src/assets/img
+    output: ../../assets/img
     categories: [image]
 
   # Cover images go through Astro's image() pipeline for AVIF/WebP +

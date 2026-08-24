@@ -11,10 +11,10 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "typecheck": "astro check",
-    "deploy:check": "pnpm typecheck && pnpm format:check && pnpm build",
+    "deploy:check": "pnpm format:check && pnpm build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"

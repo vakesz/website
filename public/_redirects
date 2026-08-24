@@ -1,1 +1,6 @@
-https://www.vakesz.com/* https://vakesz.com/:splat 301
+# Host-level redirects (www → apex, pages.dev → apex) do not work here.
+# Cloudflare Pages does not support domain-level rules in this file.
+# Set Bulk Redirects in the dashboard instead:
+#   www.vakesz.com     → https://vakesz.com    301  (subpath + query)
+#   vakesz.pages.dev   → https://vakesz.com    301  (subpath + query)
+#   DNS for www: proxied A record to 192.0.2.1

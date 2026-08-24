@@ -1,12 +1,12 @@
 /* TEAM */
-  Author: Gabor Pinkova
+  Author: Gábor Pinkova
   Site: https://vakesz.com
   Contact: hello [at] vakesz.com
   GitHub: @vakesz
   Location: Hungary
 
 /* SITE */
-  Last update: 2026/05
+  Last update: 2026/08
   Standards: HTML5, CSS, semantic markup
   Components: Astro, MDX
   Software: pnpm, Prettier
@@ -15,8 +15,8 @@
   Type: Static site (no tracking, no cookies, no consent banners)
 
 /* TYPOGRAPHY */
-  Sans: Inter
-  Mono: JetBrains Mono
+  Sans: system-ui
+  Mono: ui-monospace
 
 /* THANKS */
   Astro team for an excellent static-site framework.

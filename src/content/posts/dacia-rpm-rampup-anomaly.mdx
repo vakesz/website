@@ -1,6 +1,7 @@
 ---
 title: "Dacia RPM Rampup Anomaly"
 pubDate: 2023-03-15
+updatedDate: 2026-08-24
 description: "Chasing a persistent idle-speed oscillation on a 2017 Dacia Dokker 1.6 with OBD-II, an ELM327, and a borrowed Samsung tablet."
 tags:
   - automotive
@@ -18,13 +19,13 @@ I don't know every automotive subsystem in depth, so I asked a few colleagues fo
 
 > My father bought the car new. The issue has been present since day one. Every related ECU has been reflashed with the latest firmware at least twice. It's still there.
 
-![Dacia Dokker 2017 1.6](/img/Prague_2017_Dacia_Dokker_1.webp)
+![Dacia Dokker 2017 1.6](../../assets/img/Prague_2017_Dacia_Dokker_1.webp)
 
 Last weekend I stayed over at my parents' and finally had the car in front of me. After breakfast I pulled the trim, unplugged the accelerator-pedal connectors, checked the pins, reseated everything. No corrosion, no bent terminals.
 
 Behind the gear lever I found an old ELM327 dongle. Plugged it into the OBD-II port, then remembered iOS doesn't talk to classic-Bluetooth OBD adapters. Half an hour of futile scanning with my iPhone later, I dug out an ancient Samsung tablet, installed the first free app in the Play Store, and the connection came alive.
 
-![ELM327 Bluetooth](/img/elm327.webp)
+![ELM327 Bluetooth](../../assets/img/elm327.webp)
 
 Holding the pedal steady while watching live data was impossible solo, so I asked my dad to hold ~15–20% throttle while I recorded PIDs. Even with the pedal locked, the engine randomly surged by 300–400 rpm for a second or two, then settled back.
 
@@ -35,3 +36,5 @@ Current best guess: a small intake-manifold vacuum leak, too small to trigger a 
 We'll wait for the next service interval to check the intake manifold and vacuum hoses. I'll watch the consumption in the meantime.
 
 If you've seen something like this on a Dacia 1.6, I'd love to hear about it.
+
+I never published the follow-up. The vacuum-leak guess is where I left it in 2023.

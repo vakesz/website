@@ -6,7 +6,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 const path = Astro.url.pathname;
 ---
 
-<header class="site-header" transition:persist="site-header">
+<header class="site-header">
   <div class="wrap">
     <a class="brand" href="/">
       <img class="brand-mark" src="/apple-touch-icon.png" alt="" width="28" height="28" />
@@ -37,7 +37,7 @@ const path = Astro.url.pathname;
         type="button"
         class="menu-toggle"
         id="menu-toggle"
-        aria-label="Toggle menu"
+        aria-label="Open menu"
         aria-expanded="false"
         aria-controls="primary-nav"
       >
@@ -49,13 +49,10 @@ const path = Astro.url.pathname;
   </div>
 </header>
 
-<nav
-  id="primary-nav"
-  class="nav-drawer"
-  aria-label="Mobile"
-  data-open="false"
-  transition:persist="primary-nav"
->
+<nav id="primary-nav" class="nav-drawer" aria-label="Menu" data-open="false">
+  <button type="button" class="drawer-close" id="drawer-close" aria-label="Close menu">
+    Close
+  </button>
   <ul>
     {
       NAV.map((item) => (
@@ -71,7 +68,7 @@ const path = Astro.url.pathname;
     </li>
   </ul>
 </nav>
-<div class="nav-scrim" data-open="false" aria-hidden="true" transition:persist="nav-scrim"></div>
+<div class="nav-scrim" data-open="false" aria-hidden="true"></div>
 
 <script>
   import "../scripts/nav";
@@ -253,7 +250,7 @@ const path = Astro.url.pathname;
     background: var(--bg);
     border-left: 1px solid var(--border);
     box-shadow: -20px 0 60px -20px color-mix(in oklab, var(--accent) 35%, transparent);
-    padding: 4.5rem 1.5rem max(2rem, env(safe-area-inset-bottom));
+    padding: 1.15rem 1.5rem max(2rem, env(safe-area-inset-bottom));
     transform: translateX(100%);
     /* Delay visibility flip until the slide-out finishes. */
     transition:
@@ -269,6 +266,25 @@ const path = Astro.url.pathname;
     transform: translateX(0);
     visibility: visible;
     transition: transform 240ms ease;
+  }
+  .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin: 0 0 0.75rem auto;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--ink);
+    font-size: 0.92rem;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .drawer-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
   }
   .nav-drawer ul {
     list-style: none;

@@ -17,7 +17,7 @@ const posts = defineCollection({
       cover: z
         .object({
           // image() resolves relative paths under src/assets for optimization;
-          // string accepts absolute /img/... paths and remote URLs.
+          // string remains for rare absolute /img/... fallbacks.
           src: z.union([image(), z.string()]),
           alt: z.string(),
           caption: z.string().optional(),

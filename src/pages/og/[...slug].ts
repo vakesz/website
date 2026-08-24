@@ -48,8 +48,8 @@ export const { getStaticPaths, GET } = await OGImageRoute({
       },
     },
     fonts: [
-      "https://api.fontsource.org/v1/fonts/inter/latin-400-normal.ttf",
-      "https://api.fontsource.org/v1/fonts/inter/latin-700-normal.ttf",
+      "./src/assets/fonts/inter-latin-400-normal.ttf",
+      "./src/assets/fonts/inter-latin-700-normal.ttf",
     ],
     footer: SITE.title,
   }),

@@ -2,7 +2,7 @@ export const SITE = {
   title: "vakesz.com",
   description:
     "Software engineer at Sigma Technology. Backend systems, developer tooling, and occasionally things with wheels.",
-  author: "Gabor Pinkova",
+  author: "Gábor Pinkova",
   jobTitle: "Software Engineer",
   employer: "Sigma Technology",
   employerUrl: "https://sigmatechnology.com",

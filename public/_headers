@@ -1,16 +1,21 @@
-# The two script-src sha256 hashes are the inline scripts in
-# src/components/BaseHead.astro (theme init + view-transition theme
-# forwarder). If you edit either inline script, regenerate the hashes.
-# static.cloudflareinsights.com / cloudflareinsights.com are allowed so
-# Cloudflare Web Analytics works once enabled in the dashboard.
+# The script-src sha256 hash is the inline theme init in
+# src/components/BaseHead.astro. If you edit that script, regenerate the hash.
+# Host-level X-Robots-Tag rules cover the production pages.dev origin.
+# Preview URLs already send noindex from the platform.
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
-  Strict-Transport-Security: max-age=15552000; includeSubDomains; preload
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' https: data:; font-src 'self'; style-src 'self' 'unsafe-inline'; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://cloudflareinsights.com; script-src 'self' 'sha256-XhHecs890QqeJAag9Tmh7LFpabm0tD9hLVa1HhIWNHQ=' 'sha256-GkmpaKC3on2//6WwAXY9w9s7JSyL/BmWZu7bJQfynJM=' https://static.cloudflareinsights.com
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; script-src 'self' 'sha256-J80ygcUO0YWPBn8GusR8cvECPOSTe8NNHudeQzST/Z8='
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
@@ -37,6 +42,12 @@
   Cache-Control: public, max-age=86400
 
 /robots.txt
+  Cache-Control: public, max-age=86400
+
+/humans.txt
+  Cache-Control: public, max-age=86400
+
+/.well-known/security.txt
   Cache-Control: public, max-age=86400
 
 /sitemap-index.xml

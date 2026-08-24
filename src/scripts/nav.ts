@@ -1,22 +1,22 @@
-// Header is persisted across SPA swaps so wiring runs once.
-// Active-link state is server-rendered per page, so re-apply aria-current
-// after every swap.
-import { onPageReady } from "./lifecycle";
-import { isActiveNav } from "../lib/nav";
-
 const MOBILE_QUERY = "(max-width: 720px)";
 
 function bindNav() {
   const btn = document.getElementById("menu-toggle");
+  const closeBtn = document.getElementById("drawer-close");
   const nav = document.getElementById("primary-nav");
   const scrim = document.querySelector<HTMLElement>(".nav-scrim");
   if (!btn || !nav) return;
-  if (btn.dataset.navBound) return;
-  btn.dataset.navBound = "1";
 
   let lastFocused: HTMLElement | null = null;
   const isOpen = () => btn.getAttribute("aria-expanded") === "true";
-  const focusables = () => Array.from(nav.querySelectorAll<HTMLElement>("a[href]"));
+  const focusables = () =>
+    Array.from(nav.querySelectorAll<HTMLElement>("button, a[href]")).filter(
+      (el) => !el.hasAttribute("disabled"),
+    );
+
+  const setToggleLabel = (open: boolean) => {
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
 
   const close = () => {
     if (!isOpen()) return;
@@ -24,7 +24,7 @@ function bindNav() {
     nav.setAttribute("data-open", "false");
     scrim?.setAttribute("data-open", "false");
     document.documentElement.removeAttribute("data-nav-open");
-    // Return focus to whatever opened the drawer (the toggle button).
+    setToggleLabel(false);
     lastFocused?.focus();
     lastFocused = null;
   };
@@ -34,11 +34,13 @@ function bindNav() {
     nav.setAttribute("data-open", "true");
     scrim?.setAttribute("data-open", "true");
     document.documentElement.setAttribute("data-nav-open", "");
-    focusables()[0]?.focus();
+    setToggleLabel(true);
+    (closeBtn ?? focusables()[0])?.focus();
   };
   const toggle = () => (isOpen() ? close() : open());
 
   btn.addEventListener("click", toggle);
+  closeBtn?.addEventListener("click", close);
   scrim?.addEventListener("click", close);
 
   nav.addEventListener("click", (e) => {
@@ -46,7 +48,6 @@ function bindNav() {
     if (target instanceof HTMLElement && target.closest("a")) close();
   });
 
-  // Escape closes; Tab is trapped inside the drawer while it is open.
   document.addEventListener("keydown", (e) => {
     if (!isOpen()) return;
     if (e.key === "Escape") {
@@ -75,19 +76,6 @@ function bindNav() {
   mq.addEventListener("change", () => {
     if (!mq.matches) close();
   });
-
-  document.addEventListener("astro:before-swap", close);
-}
-
-function syncActive() {
-  const path = window.location.pathname;
-  const links = document.querySelectorAll<HTMLAnchorElement>(".nav-desktop a, #primary-nav a");
-  links.forEach((a) => {
-    const href = a.getAttribute("href") ?? "";
-    if (isActiveNav(href, path)) a.setAttribute("aria-current", "page");
-    else a.removeAttribute("aria-current");
-  });
 }
 
 bindNav();
-onPageReady(syncActive);

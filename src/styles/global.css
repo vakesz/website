@@ -11,6 +11,20 @@
 
   --radius: 12px;
   --radius-sm: 8px;
+
+  color-scheme: light;
+  --bg: #ffffff;
+  --ink: #09090b;
+  --muted: #5f5f68;
+  --border: #e4e4e7;
+  --card-bg: #fafafa;
+  --muted-bg: #f4f4f5;
+  --accent: #831843;
+  --accent-2: #9d174d;
+  --accent-soft: #fbcfe8;
+  --code-bg: #f6f8fa;
+  --selection: #fbcfe8;
+  --gradient-brand: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
 html[data-theme="light"] {
@@ -41,10 +55,6 @@ html[data-theme="dark"] {
   --accent-soft: rgba(236, 72, 153, 0.14);
   --code-bg: #18181b;
   --selection: rgba(236, 72, 153, 0.28);
-}
-
-:root {
-  --gradient-brand: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
 /* -------- base -------- */
@@ -407,10 +417,16 @@ html[data-theme="dark"] .astro-code span {
 
 /* Reusable gradient word utility */
 .gradient {
-  background-image: var(--gradient-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--accent);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gradient {
+    background-image: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 /* -------- grids / stacks -------- */
@@ -420,7 +436,7 @@ html[data-theme="dark"] .astro-code span {
 }
 .grid-2 {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: 0.9rem;
 }
 
@@ -621,14 +637,14 @@ html[data-theme="dark"] .astro-code span {
 
 /* -------- reveal-on-scroll -------- */
 
-.reveal {
+html.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition:
     opacity 240ms ease,
     transform 240ms ease;
 }
-.reveal.is-visible {
+html.js .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
@@ -645,11 +661,5 @@ html[data-theme="dark"] .astro-code span {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
-  }
-  /* Astro view-transition fades obey reduced motion. */
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
   }
 }
