@@ -3,57 +3,28 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { HTML_LANG } from "../consts";
+import type { PageMetadata } from "../lib/page-metadata";
 import "../styles/global.css";
 
 interface Props {
-  title: string;
-  description?: string;
-  image?: string;
-  article?: boolean;
-  pubDate?: Date;
-  updatedDate?: Date;
-  tags?: string[];
-  wordCount?: number;
-  wide?: boolean;
+  metadata: PageMetadata;
+  width?: "standard" | "wide";
 }
 
-const {
-  title,
-  description,
-  image,
-  article,
-  pubDate,
-  updatedDate,
-  tags,
-  wordCount,
-  wide = true,
-} = Astro.props;
+const { metadata, width = "standard" } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={HTML_LANG}>
   <head>
-    <BaseHead
-      title={title}
-      description={description}
-      image={image}
-      article={article}
-      pubDate={pubDate}
-      updatedDate={updatedDate}
-      tags={tags}
-      wordCount={wordCount}
-    />
+    <BaseHead metadata={metadata} />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
     <Header />
-    <main id="main" class={wide ? "content-wide" : "content"}>
+    <main id="main" class={width === "wide" ? "content-wide" : "content"}>
       <slot />
     </main>
     <Footer />
-    <script>
-      import "../scripts/code-copy";
-      import "../scripts/reveal";
-    </script>
   </body>
 </html>

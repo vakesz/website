@@ -7,6 +7,7 @@ interface Props {
   align?: "left" | "center";
 }
 const { eyebrow, title, accented, lede, align = "left" } = Astro.props;
+const hasLede = Boolean(lede) || Astro.slots.has("lede");
 ---
 
 <header class:list={["page-hero", align]}>
@@ -23,7 +24,7 @@ const { eyebrow, title, accented, lede, align = "left" } = Astro.props;
     }
   </h1>
   {
-    lede && (
+    hasLede && (
       <p class="lede">
         <slot name="lede">{lede}</slot>
       </p>

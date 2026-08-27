@@ -1,3 +1,8 @@
 allowBuilds:
   esbuild: true
   sharp: true
+
+overrides:
+  # Astro's dev-only YAML language server can resolve yaml below 2.9.0,
+  # which pnpm audit flags. Remove this once upstream guarantees 2.9.0+.
+  yaml-language-server>yaml: 2.9.0

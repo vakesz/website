@@ -2,7 +2,7 @@ dist/
 node_modules/
 .astro/
 .cache/
-.pnpm_store/
+.pnpm-store/
 
 .DS_Store
 Thumbs.db

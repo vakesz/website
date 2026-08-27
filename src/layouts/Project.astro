@@ -13,7 +13,7 @@ interface Props {
 const { title, description, repo, homepage, stack = [], archived } = Astro.props;
 ---
 
-<Base title={title} description={description}>
+<Base metadata={{ kind: "page", title, description }}>
   <article class="prose project">
     <header class="project-header page-hero">
       <p class="eyebrow">Project</p>

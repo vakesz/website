@@ -1,23 +1,25 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import Post from "../../layouts/Post.astro";
 import YouTube from "../../components/YouTube.astro";
 import PostFooter from "../../components/PostFooter.astro";
-import { isPublished, siblingPosts } from "../../lib/content";
+import { loadPostCatalog } from "../../lib/content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts", isPublished);
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post, posts },
-  }));
+  const catalog = await loadPostCatalog();
+  return catalog.posts.map((post) => {
+    const { prev, next } = catalog.neighborsOf(post.id);
+    return {
+      params: { slug: post.id },
+      props: { post, prev, next },
+    };
+  });
 }
 
-const { post, posts } = Astro.props;
+const { post, prev, next } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 const minutesRead = remarkPluginFrontmatter?.minutesRead as number | undefined;
 const wordCount = remarkPluginFrontmatter?.wordCount as number | undefined;
-const { prev, next } = siblingPosts(posts, post);
 ---
 
 <Post

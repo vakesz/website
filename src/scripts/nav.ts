@@ -1,11 +1,18 @@
 const MOBILE_QUERY = "(max-width: 720px)";
 
+export {};
+
 function bindNav() {
   const btn = document.getElementById("menu-toggle");
   const closeBtn = document.getElementById("drawer-close");
   const nav = document.getElementById("primary-nav");
   const scrim = document.querySelector<HTMLElement>(".nav-scrim");
   if (!btn || !nav) return;
+
+  const background = Array.from(document.body.children).filter(
+    (element): element is HTMLElement =>
+      element instanceof HTMLElement && element !== nav && element !== scrim,
+  );
 
   let lastFocused: HTMLElement | null = null;
   const isOpen = () => btn.getAttribute("aria-expanded") === "true";
@@ -17,6 +24,11 @@ function bindNav() {
   const setToggleLabel = (open: boolean) => {
     btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   };
+  const setBackgroundInert = (inert: boolean) => {
+    background.forEach((element) => {
+      element.inert = inert;
+    });
+  };
 
   const close = () => {
     if (!isOpen()) return;
@@ -24,16 +36,20 @@ function bindNav() {
     nav.setAttribute("data-open", "false");
     scrim?.setAttribute("data-open", "false");
     document.documentElement.removeAttribute("data-nav-open");
+    setBackgroundInert(false);
     setToggleLabel(false);
     lastFocused?.focus();
+    nav.setAttribute("aria-hidden", "true");
     lastFocused = null;
   };
   const open = () => {
     lastFocused = document.activeElement as HTMLElement | null;
     btn.setAttribute("aria-expanded", "true");
     nav.setAttribute("data-open", "true");
+    nav.setAttribute("aria-hidden", "false");
     scrim?.setAttribute("data-open", "true");
     document.documentElement.setAttribute("data-nav-open", "");
+    setBackgroundInert(true);
     setToggleLabel(true);
     (closeBtn ?? focusables()[0])?.focus();
   };

@@ -1,17 +1,23 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import PageHeader from "../../components/PageHeader.astro";
-import { byPinnedThenOrder } from "../../lib/content";
+import { loadProjects } from "../../lib/content";
 
-const projects = (await getCollection("projects")).sort(byPinnedThenOrder);
+const projects = await loadProjects();
 ---
 
-<Base title="Projects" description="Side projects, utilities, and works-in-progress by vakesz.">
+<Base
+  metadata={{
+    kind: "page",
+    title: "Projects",
+    description: "Side projects, utilities, and works-in-progress by vakesz.",
+  }}
+  width="wide"
+>
   <PageHeader
     eyebrow="Work"
-    title="Selected "
+    title="Selected"
     accented="projects."
     lede="Things I've built, mostly in my spare time. Some finished, some intentionally not."
   />

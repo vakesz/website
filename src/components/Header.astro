@@ -1,9 +1,9 @@
 ---
 import { SITE, NAV } from "../consts";
-import { isActiveNav } from "../lib/nav";
 import ThemeToggle from "./ThemeToggle.astro";
 
 const path = Astro.url.pathname;
+const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 ---
 
 <header class="site-header">
@@ -21,7 +21,7 @@ const path = Astro.url.pathname;
         {
           NAV.map((item) => (
             <li>
-              <a href={item.href} aria-current={isActiveNav(item.href, path) ? "page" : undefined}>
+              <a href={item.href} aria-current={isActiveNav(item.href) ? "page" : undefined}>
                 {item.label}
               </a>
             </li>
@@ -49,25 +49,35 @@ const path = Astro.url.pathname;
   </div>
 </header>
 
-<nav id="primary-nav" class="nav-drawer" aria-label="Menu" data-open="false">
+<div
+  id="primary-nav"
+  class="nav-drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Navigation menu"
+  aria-hidden="true"
+  data-open="false"
+>
   <button type="button" class="drawer-close" id="drawer-close" aria-label="Close menu">
     Close
   </button>
-  <ul>
-    {
-      NAV.map((item) => (
-        <li>
-          <a href={item.href} aria-current={isActiveNav(item.href, path) ? "page" : undefined}>
-            {item.label}
-          </a>
-        </li>
-      ))
-    }
-    <li class="drawer-cta">
-      <a href={`mailto:${SITE.email}`}>Get in touch →</a>
-    </li>
-  </ul>
-</nav>
+  <nav aria-label="Mobile primary">
+    <ul>
+      {
+        NAV.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActiveNav(item.href) ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="drawer-cta">
+        <a href={`mailto:${SITE.email}`}>Get in touch →</a>
+      </li>
+    </ul>
+  </nav>
+</div>
 <div class="nav-scrim" data-open="false" aria-hidden="true"></div>
 
 <script>

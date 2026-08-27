@@ -94,7 +94,7 @@ content:
           name: title,
           type: string,
           required: true,
-          description: "Trailing space + titleAccent renders as 'A bit about me.'",
+          description: "Text before the optional accented title ending.",
         }
       - { name: titleAccent, label: Title accent, type: string }
       - { name: description, type: text, description: "Used for the page <meta description>." }

@@ -1,5 +1,7 @@
 type Theme = "light" | "dark";
 
+export {};
+
 const STORAGE_KEY = "theme";
 const TOGGLE_ID = "theme-toggle";
 const THEME_COLOR = { light: "#ffffff", dark: "#09090b" } as const;

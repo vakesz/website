@@ -5,8 +5,8 @@ interface Props {
 }
 const { date, short = false } = Astro.props;
 const opts: Intl.DateTimeFormatOptions = short
-  ? { year: "numeric", month: "short", day: "numeric" }
-  : { year: "numeric", month: "long", day: "numeric" };
+  ? { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" }
+  : { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" };
 const formatted = new Intl.DateTimeFormat("en-US", opts).format(date);
 ---
 

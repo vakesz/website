@@ -3,10 +3,17 @@ import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 ---
 
-<Base title="404 · Not Found" description="This page doesn't exist.">
+<Base
+  metadata={{
+    kind: "page",
+    title: "404 · Not Found",
+    description: "This page doesn't exist.",
+    robots: "noindex",
+  }}
+>
   <section class="not-found">
     <p class="code gradient">404</p>
-    <PageHeader align="center" title="Lost in " accented="transit.">
+    <PageHeader align="center" title="Lost in" accented="transit.">
       <Fragment slot="lede">
         The page you’re looking for doesn’t exist, or it got renamed when I was tidying up. Head <a
           href="/">home</a

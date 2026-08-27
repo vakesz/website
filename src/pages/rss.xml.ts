@@ -1,16 +1,16 @@
 import rss from "@astrojs/rss";
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { loadRenderers } from "astro:container";
-import { getContainerRenderer as getMdxRenderer } from "@astrojs/mdx";
+import { getContainerRenderer as getMdxRenderer } from "@astrojs/mdx/container-renderer";
 import type { APIContext } from "astro";
 import { SITE, HTML_LANG } from "../consts";
-import { isPublished, byPubDateDesc } from "../lib/content";
+import { loadPostCatalog } from "../lib/content";
 import YouTube from "../components/YouTube.astro";
 
 export async function GET(context: APIContext) {
   const site = context.site!;
-  const posts = (await getCollection("posts", isPublished)).sort(byPubDateDesc);
+  const { posts } = await loadPostCatalog();
 
   // Render each post body to HTML so the feed carries full content, not
   // just the description.

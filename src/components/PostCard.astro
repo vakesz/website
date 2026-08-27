@@ -4,15 +4,17 @@ import FormattedDate from "./FormattedDate.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
+  headingLevel?: 2 | 3;
 }
-const { post } = Astro.props;
+const { post, headingLevel = 3 } = Astro.props;
 const href = `/posts/${post.id}/`;
 const titleId = `post-${post.id}-title`;
 const tags = post.data.tags.slice(0, 3);
+const Heading = `h${headingLevel}` as const;
 ---
 
 <a class="card post-card" href={href} aria-labelledby={titleId}>
-  <h3 class="title" id={titleId}>{post.data.title}</h3>
+  <Heading class="title" id={titleId}>{post.data.title}</Heading>
   <p class="desc">{post.data.description}</p>
   <div class="meta">
     <FormattedDate date={post.data.pubDate} short />

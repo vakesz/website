@@ -1,5 +1,3 @@
-# The script-src sha256 hash is the inline theme init in
-# src/components/BaseHead.astro. If you edit that script, regenerate the hash.
 # Host-level X-Robots-Tag rules cover the production pages.dev origin.
 # Preview URLs already send noindex from the platform.
 /*
@@ -9,7 +7,8 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; script-src 'self' 'sha256-J80ygcUO0YWPBn8GusR8cvECPOSTe8NNHudeQzST/Z8='
+  Cache-Control: no-transform
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; script-src 'self'
 
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
@@ -19,42 +18,3 @@ https://:version.:project.pages.dev/*
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
-
-/img/*
-  Cache-Control: public, max-age=604800
-
-/og/*
-  Cache-Control: public, max-age=604800
-
-/favicon.ico
-  Cache-Control: public, max-age=604800
-
-/favicon-16x16.png
-  Cache-Control: public, max-age=604800
-
-/favicon-32x32.png
-  Cache-Control: public, max-age=604800
-
-/apple-touch-icon.png
-  Cache-Control: public, max-age=604800
-
-/site.webmanifest
-  Cache-Control: public, max-age=86400
-
-/robots.txt
-  Cache-Control: public, max-age=86400
-
-/humans.txt
-  Cache-Control: public, max-age=86400
-
-/.well-known/security.txt
-  Cache-Control: public, max-age=86400
-
-/sitemap-index.xml
-  Cache-Control: public, max-age=3600
-
-/sitemap-0.xml
-  Cache-Control: public, max-age=3600
-
-/rss.xml
-  Cache-Control: public, max-age=3600

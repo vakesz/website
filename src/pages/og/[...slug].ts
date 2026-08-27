@@ -1,24 +1,37 @@
-import { getCollection } from "astro:content";
 import { OGImageRoute } from "astro-og-canvas";
 import { SITE } from "../../consts";
-import { isPublished } from "../../lib/content";
+import { loadPostCatalog } from "../../lib/content";
 
-const posts = await getCollection("posts", isPublished);
+const { posts } = await loadPostCatalog();
 
-const pages = Object.fromEntries(
-  posts.map((p) => [
-    p.id,
-    {
-      title: p.data.title,
-      description: p.data.description,
-    },
-  ]),
-);
+if (posts.some((post) => post.id === "site")) {
+  throw new Error('The post ID "site" is reserved for the default Open Graph image.');
+}
+
+interface OGPage {
+  title: string;
+  description: string;
+}
+
+const pages: Record<string, OGPage> = {
+  site: {
+    title: SITE.title,
+    description: SITE.description,
+  },
+  ...Object.fromEntries(
+    posts.map((post) => [
+      post.id,
+      {
+        title: post.data.title,
+        description: post.data.description,
+      },
+    ]),
+  ),
+};
 
 export const { getStaticPaths, GET } = await OGImageRoute({
-  param: "slug",
   pages,
-  getImageOptions: (_path, page: (typeof pages)[string]) => ({
+  getImageOptions: (_path, page) => ({
     title: page.title,
     description: page.description,
     bgGradient: [

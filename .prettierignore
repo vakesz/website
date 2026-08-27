@@ -2,6 +2,3 @@ dist/
 node_modules/
 .astro/
 pnpm-lock.yaml
-
-# prettier-plugin-astro can't parse `<script is:inline define:vars={...}>` blocks
-src/components/BaseHead.astro

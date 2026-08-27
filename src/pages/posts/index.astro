@@ -1,38 +1,33 @@
 ---
-import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import PostCard from "../../components/PostCard.astro";
 import PageHeader from "../../components/PageHeader.astro";
-import { isPublished, byPubDateDesc } from "../../lib/content";
+import { loadPostCatalog } from "../../lib/content";
 
-const posts = (await getCollection("posts", isPublished)).sort(byPubDateDesc);
-
-const grouped = new Map<number, typeof posts>();
-for (const p of posts) {
-  const year = p.data.pubDate.getFullYear();
-  if (!grouped.has(year)) grouped.set(year, [] as typeof posts);
-  grouped.get(year)!.push(p);
-}
-const years = [...grouped.keys()].sort((a, b) => b - a);
+const { posts, years } = await loadPostCatalog();
 ---
 
 <Base
-  title="Posts"
-  description="All posts on vakesz.com - backend, automotive, career, and the occasional side project."
+  metadata={{
+    kind: "page",
+    title: "Posts",
+    description:
+      "All posts on vakesz.com - backend, automotive, career, and the occasional side project.",
+  }}
 >
   <PageHeader
     eyebrow="Writing"
-    title="All "
+    title="All"
     accented="posts."
     lede={`Everything I've written here, newest first. ${posts.length} total.`}
   />
 
   {
-    years.map((year) => (
+    years.map(({ year, posts: entries }) => (
       <section class="year-block">
         <h2 class="year">{year}</h2>
         <div class="stack">
-          {grouped.get(year)!.map((post) => (
+          {entries.map((post) => (
             <PostCard post={post} />
           ))}
         </div>

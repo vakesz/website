@@ -2,6 +2,10 @@ import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 
+const httpUrl = z.url().refine((value) => ["http:", "https:"].includes(new URL(value).protocol), {
+  message: "Must use an HTTP(S) URL",
+});
+
 const posts = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/posts" }),
   schema: ({ image }) =>
@@ -11,15 +15,15 @@ const posts = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       draft: z.boolean().default(false),
-      // Normalize so casing/whitespace can't split a tag into duplicates
-      // between the tag index (counts raw) and tag pages (group by slug).
-      tags: z.array(z.string().trim().toLowerCase()).default([]),
+      // Give every catalog consumer the same canonical tag labels.
+      tags: z
+        .array(z.string().trim().min(1).toLowerCase())
+        .default([])
+        .transform((tags) => [...new Set(tags)]),
       cover: z
         .object({
-          // image() resolves relative paths under src/assets for optimization;
-          // string remains for rare absolute /img/... fallbacks.
-          src: z.union([image(), z.string()]),
-          alt: z.string(),
+          src: image(),
+          alt: z.string().trim().min(1),
           caption: z.string().optional(),
         })
         .optional(),
@@ -31,8 +35,8 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    repo: z.url().optional(),
-    homepage: z.url().optional(),
+    repo: httpUrl.optional(),
+    homepage: httpUrl.optional(),
     stack: z.array(z.string()).default([]),
     pinned: z.boolean().default(false),
     archived: z.boolean().default(false),

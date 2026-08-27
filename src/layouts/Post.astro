@@ -12,7 +12,7 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   tags?: string[];
-  cover?: { src: ImageMetadata | string; alt: string; caption?: string };
+  cover?: { src: ImageMetadata; alt: string; caption?: string };
   minutesRead?: number;
   wordCount?: number;
 }
@@ -29,19 +29,20 @@ const {
   wordCount,
 } = Astro.props;
 
-const coverOg = typeof cover?.src === "string" ? cover.src : cover?.src.src;
-const ogImage = coverOg ?? `/og/${slug}.png`;
+const ogImage = `/og/${slug}.png`;
 ---
 
 <Base
-  title={title}
-  description={description}
-  image={ogImage}
-  article
-  pubDate={pubDate}
-  updatedDate={updatedDate}
-  tags={tags}
-  wordCount={wordCount}
+  metadata={{
+    kind: "article",
+    title,
+    description,
+    image: { src: ogImage, alt: title },
+    pubDate,
+    updatedDate,
+    tags,
+    wordCount,
+  }}
 >
   <article class="prose post">
     <header class="post-header page-hero">
@@ -77,29 +78,16 @@ const ogImage = coverOg ?? `/og/${slug}.png`;
     {
       cover && (
         <figure class="cover">
-          {typeof cover.src === "string" ? (
-            <img
-              class="cover-raw"
-              src={cover.src}
-              alt={cover.alt}
-              width="1280"
-              height="720"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-            />
-          ) : (
-            <Picture
-              src={cover.src}
-              alt={cover.alt}
-              widths={[640, 880, 1280, 1760]}
-              sizes="(max-width: 880px) 100vw, 880px"
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-              formats={["avif", "webp"]}
-            />
-          )}
+          <Picture
+            src={cover.src}
+            alt={cover.alt}
+            widths={[640, 880, 1280, 1760]}
+            sizes="(max-width: 880px) 100vw, 880px"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            formats={["avif", "webp"]}
+          />
           {cover.caption && <figcaption>{cover.caption}</figcaption>}
         </figure>
       )
@@ -155,11 +143,6 @@ const ogImage = coverOg ?? `/og/${slug}.png`;
     border-radius: var(--radius);
     border: 1px solid var(--border);
   }
-  .cover :global(img.cover-raw) {
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
   .cover figcaption {
     margin-top: 0.5rem;
     text-align: center;
@@ -168,5 +151,26 @@ const ogImage = coverOg ?? `/og/${slug}.png`;
   }
   .post-body {
     font-size: 1.02rem;
+  }
+  .tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .tag-list a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .tag-list a:hover {
+    color: var(--ink);
+    border-color: var(--accent);
   }
 </style>

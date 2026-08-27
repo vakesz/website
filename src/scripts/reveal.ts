@@ -1,3 +1,5 @@
+export {};
+
 function setup() {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const targets = document.querySelectorAll<HTMLElement>(".reveal");
