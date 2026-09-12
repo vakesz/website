@@ -1,6 +1,7 @@
 ---
 title: "Dotfiles"
-description: "macOS-first dotfiles with Linux and WSL support, managed with GNU Stow, XDG-friendly config, a Brewfile, and platform setup scripts."
+description: "A repeatable setup for macOS, Linux, and WSL. A new machine, ready to work."
+category: "Developer tooling"
 repo: "https://github.com/vakesz/dotfiles"
 stack: ["Shell", "zsh"]
 order: 40

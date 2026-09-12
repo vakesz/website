@@ -32,16 +32,20 @@ const posts = defineCollection({
 
 const projects = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    repo: httpUrl.optional(),
-    homepage: httpUrl.optional(),
-    stack: z.array(z.string()).default([]),
-    pinned: z.boolean().default(false),
-    archived: z.boolean().default(false),
-    order: z.number().default(0),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      category: z.string().default("Personal project"),
+      cover: z.object({ src: image(), alt: z.string().trim().min(1) }).optional(),
+      imageStyle: z.enum(["screenshot", "icon"]).default("screenshot"),
+      repo: httpUrl.optional(),
+      homepage: httpUrl.optional(),
+      stack: z.array(z.string()).default([]),
+      pinned: z.boolean().default(false),
+      archived: z.boolean().default(false),
+      order: z.number().default(0),
+    }),
 });
 
 const pages = defineCollection({

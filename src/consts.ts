@@ -13,8 +13,8 @@ export const SITE = {
 export const HTML_LANG = SITE.locale.replace("_", "-").toLowerCase();
 
 export const NAV = [
-  { href: "/posts/", label: "Posts" },
-  { href: "/projects/", label: "Projects" },
+  { href: "/projects/", label: "Portfolio" },
+  { href: "/posts/", label: "Blog" },
   { href: "/about/", label: "About" },
 ] as const;
 

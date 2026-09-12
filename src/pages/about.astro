@@ -9,7 +9,7 @@ import wexlPhoto from "../assets/img/wexl.webp";
 const entry = await getEntry("pages", "about");
 if (!entry) throw new Error("Missing src/content/pages/about.mdx");
 const { Content } = await render(entry);
-const { title, titleAccent, eyebrow, description, lede } = entry.data;
+const { title, titleAccent, description, lede } = entry.data;
 ---
 
 <Base metadata={{ kind: "page", title, description }} width="wide">
@@ -26,7 +26,7 @@ const { title, titleAccent, eyebrow, description, lede } = entry.data;
       />
     </div>
 
-    <PageHeader eyebrow={eyebrow} title={title} accented={titleAccent} lede={lede}>
+    <PageHeader title={title} accented={titleAccent} lede={lede}>
       <div class="about-social">
         <SocialIcons />
       </div>
@@ -63,9 +63,6 @@ const { title, titleAccent, eyebrow, description, lede } = entry.data;
     object-fit: cover;
     border-radius: 18px;
     border: 1px solid var(--border);
-    box-shadow:
-      0 24px 50px -26px color-mix(in oklab, var(--accent) 34%, transparent),
-      0 16px 34px -24px color-mix(in oklab, var(--accent-2) 34%, transparent);
   }
 
   .about-social {

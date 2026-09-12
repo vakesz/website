@@ -1,68 +1,66 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "./FormattedDate.astro";
-
 interface Props {
   post: CollectionEntry<"posts">;
   headingLevel?: 2 | 3;
 }
 const { post, headingLevel = 3 } = Astro.props;
-const href = `/posts/${post.id}/`;
-const titleId = `post-${post.id}-title`;
-const tags = post.data.tags.slice(0, 3);
 const Heading = `h${headingLevel}` as const;
 ---
 
-<a class="card post-card" href={href} aria-labelledby={titleId}>
-  <Heading class="title" id={titleId}>{post.data.title}</Heading>
-  <p class="desc">{post.data.description}</p>
-  <div class="meta">
-    <FormattedDate date={post.data.pubDate} short />
-    {
-      tags.length > 0 && (
-        <>
-          <span class="dot" aria-hidden="true">
-            ·
-          </span>
-          <span class="tags">
-            {tags.map((t) => (
-              <span class="tag">#{t}</span>
-            ))}
-          </span>
-        </>
-      )
-    }
-  </div>
-</a>
-
+<a class="post-card" href={`/posts/${post.id}/`} aria-labelledby={`post-${post.id}-title`}
+  ><div class="post-meta">
+    <span>{post.data.tags[0] ?? "Notes"}</span><FormattedDate date={post.data.pubDate} short />
+  </div><div class="post-title">
+    <Heading id={`post-${post.id}-title`}>{post.data.title}</Heading><span aria-hidden="true"
+      >↗</span
+    >
+  </div><p>{post.data.description}</p></a
+>
 <style>
-  .post-card .title,
-  .post-card .desc {
-    overflow-wrap: anywhere;
+  .post-card {
+    display: block;
+    padding: 1.55rem 0;
+    border-bottom: 1px solid var(--border);
   }
-  .meta {
+  .post-card:first-child {
+    padding-top: 0;
+  }
+  .post-meta {
     display: flex;
-    gap: 0.5rem;
     align-items: center;
-    flex-wrap: wrap;
-    font-size: 0.82rem;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.75rem;
+    font-family: var(--font-sans);
     color: var(--muted);
-    font-family: var(--font-mono);
+    margin-bottom: 0.8rem;
   }
-  .tags {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 0.6rem;
-    letter-spacing: 0.01em;
-    min-width: 0;
+  .post-meta > span {
+    letter-spacing: 0;
   }
-  .tag {
-    white-space: nowrap;
+  .post-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
   }
-  @media (max-width: 640px) {
-    .meta {
-      font-size: 0.78rem;
-      row-gap: 0.2rem;
-    }
+  .post-title h2,
+  .post-title h3 {
+    font-size: 1.3rem;
+    line-height: 1.35;
+    margin: 0;
+  }
+  .post-title > span {
+    flex-shrink: 0;
+  }
+  .post-card p {
+    font-size: 0.925rem;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0.65rem 2rem 0 0;
+  }
+  .post-card:hover .post-title {
+    color: var(--accent);
   }
 </style>

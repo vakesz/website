@@ -4,7 +4,7 @@ export {};
 
 const STORAGE_KEY = "theme";
 const TOGGLE_ID = "theme-toggle";
-const THEME_COLOR = { light: "#ffffff", dark: "#09090b" } as const;
+const THEME_COLOR = { light: "#fcfcfc", dark: "#141718" } as const;
 
 function currentTheme(): Theme {
   return document.documentElement.dataset.theme === "dark" ? "dark" : "light";

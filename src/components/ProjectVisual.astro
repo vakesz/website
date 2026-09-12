@@ -1,0 +1,175 @@
+---
+import { Picture } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  project: CollectionEntry<"projects">;
+  large?: boolean;
+}
+const { project, large = false } = Astro.props;
+const { title, category, cover, imageStyle } = project.data;
+const iconScale = project.id === "glasstual" ? 1024 / 824 : 1;
+const iconSizes = `(max-width:760px) ${Math.ceil(95 * iconScale)}px, ${Math.ceil((large ? 150 : 132) * iconScale)}px`;
+---
+
+<div class:list={["project-art", project.id, large && "large", cover && imageStyle]}>
+  {
+    cover ? (
+      <Picture
+        src={cover.src}
+        alt={cover.alt}
+        widths={imageStyle === "icon" ? [160, 320] : [600, 1000]}
+        sizes={imageStyle === "icon" ? iconSizes : "(max-width:760px) 90vw, 550px"}
+        formats={["avif", "webp"]}
+        loading="lazy"
+      />
+    ) : (
+      <div class="project-wordmark">
+        {title}
+        <span>{category}</span>
+      </div>
+    )
+  }
+</div>
+<style>
+  .project-art {
+    aspect-ratio: 1.7;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #e8eaf0;
+    color: #28313f;
+    border: 1px solid #dde0e5;
+    padding: 1.8rem;
+    transition: transform 0.2s;
+  }
+  .project-art.screenshot :global(picture) {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+  }
+  .project-art.screenshot :global(img) {
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 15px 26px -17px #24283880;
+  }
+  .project-wordmark {
+    text-align: center;
+    font-size: 2.5rem;
+    letter-spacing: -0.065em;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .project-wordmark span,
+  .icon-label span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+  .drifting-thoughts {
+    background: #fae8f2;
+    color: #743558;
+    border-color: #efd6e4;
+    gap: 1.2rem;
+  }
+  .icon :global(img) {
+    width: 132px;
+    height: 132px;
+    border-radius: 24px;
+    box-shadow: 0 14px 32px -20px #7d185b99;
+  }
+  .glasstual.icon :global(img) {
+    /* The 1024px source has 100px of transparent padding on each side. */
+    transform: scale(calc(1024 / 824));
+    box-shadow: none;
+    filter: drop-shadow(0 10px 12px #00000026);
+  }
+  .icon-label {
+    font-family: Georgia, serif;
+    font-size: 1.7rem;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .icon-label span {
+    margin-top: 0.65rem;
+    font-size: 0.75rem;
+  }
+  .notification-app {
+    background: #e7eeea;
+    color: #345747;
+    border-color: #d6e3da;
+  }
+  .dotfiles {
+    background: #26242d;
+    color: #f3e9f1;
+    border-color: #34313d;
+  }
+  .dotfiles .project-wordmark {
+    font-family: var(--font-mono);
+    font-size: 2.1rem;
+    letter-spacing: -0.06em;
+  }
+  :global(html[data-theme="dark"]) .project-art {
+    background: #242732;
+    color: #e4e7f0;
+    border-color: #353a48;
+  }
+  :global(html[data-theme="dark"]) .drifting-thoughts {
+    background: #30222d;
+    color: #f2d6e8;
+    border-color: #493242;
+  }
+  :global(html[data-theme="dark"]) .notification-app {
+    background: #202d27;
+    color: #d6e8de;
+    border-color: #34483c;
+  }
+  :global(html[data-theme="dark"]) .dotfiles {
+    background: #26242d;
+    color: #f3e9f1;
+    border-color: #34313d;
+  }
+  .large {
+    aspect-ratio: 2.3;
+    padding: 2.5rem;
+  }
+  .large.icon :global(img) {
+    width: 150px;
+    height: 150px;
+    border-radius: 32px;
+  }
+  @media (max-width: 760px) {
+    .project-art {
+      padding: 1.3rem;
+    }
+    .project-wordmark {
+      font-size: 2rem;
+    }
+    .icon :global(img) {
+      width: 95px;
+      height: 95px;
+      border-radius: 22px;
+    }
+    .icon-label {
+      font-size: 1.5rem;
+    }
+    .drifting-thoughts {
+      gap: 0.9rem;
+    }
+    .large {
+      aspect-ratio: 1.7;
+    }
+    .large.icon :global(img) {
+      width: 95px;
+      height: 95px;
+      border-radius: 22px;
+    }
+  }
+</style>

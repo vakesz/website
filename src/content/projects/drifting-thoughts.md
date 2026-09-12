@@ -1,6 +1,11 @@
 ---
 title: "Drifting Thoughts"
-description: "On-device iOS micro-journal. Write a short thought, style it as a card, share it. SwiftUI and SwiftData, no account."
+description: "A pocket-sized journal. Capture a thought, make it a card, keep it on your device."
+category: "iOS application"
+cover:
+  src: "../../assets/projects/drifting-thoughts.png"
+  alt: "Drifting Thoughts app icon"
+imageStyle: icon
 repo: "https://github.com/vakesz/Drifting-Thoughts"
 stack: ["Swift", "SwiftUI", "SwiftData"]
 pinned: true

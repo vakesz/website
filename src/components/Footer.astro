@@ -1,55 +1,74 @@
 ---
-import { SITE } from "../consts";
-import SocialIcons from "./SocialIcons.astro";
+import { SITE, SOCIAL } from "../consts";
 const year = new Date().getUTCFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p class="copy">© {year} {SITE.title}</p>
-    <div class="links" aria-label="Footer links">
-      <SocialIcons variant="inline" includeRss={true} />
-    </div>
+  <div class="footer-inner">
+    <div>
+      <a class="footer-brand" href="/">vakesz<span>.</span></a><p>
+        © {year}
+        {SITE.author} · Budapest, Hungary
+      </p>
+    </div><nav aria-label="Footer">
+      <a href={SOCIAL.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a><a
+        href={SOCIAL.linkedin}
+        target="_blank"
+        rel="noopener noreferrer">LinkedIn ↗</a
+      ><a href={`mailto:${SITE.email}`}>Email ↗</a><a href="/rss.xml">RSS</a><a href="/admin/"
+        >Admin</a
+      >
+    </nav>
   </div>
 </footer>
-
 <style>
   .site-footer {
     border-top: 1px solid var(--border);
     margin-top: 4rem;
-    padding: 1.5rem 0;
-    color: var(--muted);
-    font-size: 0.88rem;
+    padding: 2.5rem 0;
   }
-  .wrap {
+  .footer-inner {
     max-width: var(--content-wide);
-    margin: 0 auto;
-    padding: 0 1.25rem;
+    width: calc(100% - 6rem);
+    margin: auto;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.25rem;
-    align-items: center;
     justify-content: space-between;
-    line-height: 1;
-  }
-  .copy {
-    margin: 0;
-    line-height: 1;
-  }
-  .links {
-    display: inline-flex;
     align-items: center;
-    line-height: 1;
+    gap: 2rem;
   }
-  @media (max-width: 480px) {
+  .footer-brand {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.06em;
+  }
+  .footer-brand span {
+    color: var(--accent);
+  }
+  p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin: 0.35rem 0 0;
+  }
+  nav {
+    display: flex;
+    gap: 1.4rem;
+    flex-wrap: wrap;
+    font-size: 0.825rem;
+  }
+  nav a {
+    padding: 0.5rem 0;
+  }
+  @media (max-width: 760px) {
+    .footer-inner {
+      width: calc(100% - 2.5rem);
+      flex-direction: column;
+      align-items: flex-start;
+    }
     .site-footer {
       margin-top: 3rem;
-      padding: 1.25rem 0;
     }
-    .wrap {
-      flex-direction: column;
-      gap: 0.85rem;
-      font-size: 0.84rem;
+    nav {
+      gap: 1.3rem;
     }
   }
 </style>

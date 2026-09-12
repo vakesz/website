@@ -1,6 +1,11 @@
 ---
 title: "Glasstual"
-description: "A customizable native IRC client for macOS Tahoe and later, continuing Textual with modern IRCv3 support."
+description: "A native Mac IRC client. Modern conversations, built on an open protocol."
+category: "macOS application"
+cover:
+  src: "../../assets/projects/glasstual-icon.png"
+  alt: "Glasstual app icon"
+imageStyle: icon
 repo: "https://github.com/vakesz/Glasstual"
 homepage: "https://vakesz.github.io/Glasstual/"
 stack: ["Swift", "SwiftUI", "AppKit", "IRCv3"]

@@ -44,9 +44,9 @@ const ogImage = `/og/${slug}.png`;
     wordCount,
   }}
 >
+  <a class="back-link" href="/posts/">← Blog</a>
   <article class="prose post">
     <header class="post-header page-hero">
-      <p class="eyebrow">Post</p>
       <h1><span class="gradient">{title}</span></h1>
       <p class="post-meta">
         <FormattedDate date={pubDate} />
@@ -129,13 +129,13 @@ const ogImage = `/og/${slug}.png`;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
     color: var(--muted);
     margin: 0;
   }
   .cover {
-    margin: 1.5rem -0.5rem 2rem;
+    margin: 2rem 0 3rem;
   }
   .cover :global(img) {
     width: 100%;
@@ -150,7 +150,7 @@ const ogImage = `/og/${slug}.png`;
     font-size: 0.86rem;
   }
   .post-body {
-    font-size: 1.02rem;
+    font-size: 1.3rem;
   }
   .tag-list {
     list-style: none;
@@ -161,8 +161,8 @@ const ogImage = `/og/${slug}.png`;
     gap: 0.4rem;
   }
   .tag-list a {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
     padding: 0.2rem 0.6rem;
     border: 1px solid var(--border);
     border-radius: 999px;

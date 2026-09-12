@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { SITE_ORIGIN } from "./site.config.mjs";
 import mdx from "@astrojs/mdx";
 import { unified } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
@@ -8,8 +9,11 @@ import { toString } from "mdast-util-to-string";
 import { remarkReadingTime } from "./src/lib/remark-reading-time.mjs";
 
 export default defineConfig({
-  site: "https://vakesz.com",
-  integrations: [mdx(), sitemap()],
+  site: SITE_ORIGIN,
+  integrations: [
+    mdx(),
+    sitemap({ filter: (page) => !new URL(page).pathname.startsWith("/admin") }),
+  ],
   // Preserve Astro 6's whitespace behavior during the v7 migration.
   compressHTML: true,
   markdown: {

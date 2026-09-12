@@ -4,8 +4,9 @@ import { SITE, SOCIAL } from "../consts";
 interface Props {
   variant?: "round" | "inline";
   includeRss?: boolean;
+  only?: IconId[];
 }
-const { variant = "round", includeRss = false } = Astro.props;
+const { variant = "round", includeRss = false, only } = Astro.props;
 
 type IconId = "github" | "x" | "linkedin" | "instagram" | "youtube" | "mail" | "rss";
 
@@ -69,38 +70,46 @@ if (includeRss) {
 
 <ul class:list={["social-icons", variant]} aria-label="Social links">
   {
-    links.map((l) => {
-      const icon = icons[l.id];
-      const isMail = l.id === "mail";
-      const isIdentity = !isMail && l.id !== "rss";
-      // Identity links get rel="me" for IndieWeb verification; every
-      // outbound link opens in a new tab with a hardened rel.
-      let rel: string | undefined;
-      if (isIdentity) rel = "me noopener noreferrer";
-      else if (!isMail) rel = "noopener noreferrer";
-      return (
-        <li>
-          <a href={l.href} aria-label={l.name} target={isMail ? undefined : "_blank"} rel={rel}>
-            <svg
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              fill={icon.fill ? "currentColor" : "none"}
-              stroke={icon.fill ? "none" : "currentColor"}
-              stroke-width={icon.fill ? undefined : "1.8"}
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
+    links
+      .filter((link) => !only || only.includes(link.id))
+      .map((l) => {
+        const icon = icons[l.id];
+        const isMail = l.id === "mail";
+        const isIdentity = !isMail && l.id !== "rss";
+        // Identity links get rel="me" for IndieWeb verification; every
+        // outbound link opens in a new tab with a hardened rel.
+        let rel: string | undefined;
+        if (isIdentity) rel = "me noopener noreferrer";
+        else if (!isMail) rel = "noopener noreferrer";
+        return (
+          <li>
+            <a
+              href={l.href}
+              aria-label={l.name}
+              title={l.name}
+              target={isMail ? undefined : "_blank"}
+              rel={rel}
             >
-              {icon.paths.map((d) => (
-                <path d={d} />
-              ))}
-              {l.id === "rss" ? <circle cx="5" cy="19" r="1.5" /> : null}
-            </svg>
-          </a>
-        </li>
-      );
-    })
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill={icon.fill ? "currentColor" : "none"}
+                stroke={icon.fill ? "none" : "currentColor"}
+                stroke-width={icon.fill ? undefined : "1.8"}
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                {icon.paths.map((d) => (
+                  <path d={d} />
+                ))}
+                {l.id === "rss" ? <circle cx="5" cy="19" r="1.5" /> : null}
+              </svg>
+            </a>
+          </li>
+        );
+      })
   }
 </ul>
 
@@ -137,8 +146,8 @@ if (includeRss) {
     box-shadow: 0 6px 18px -8px color-mix(in oklab, var(--accent) 60%, transparent);
   }
   .social-icons.inline a {
-    width: auto;
-    height: auto;
+    width: 44px;
+    height: 44px;
     padding: 0;
     border: 0;
     background: transparent;

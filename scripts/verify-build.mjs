@@ -2,7 +2,7 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const SITE_ORIGIN = "https://vakesz.com";
+import { SITE_ORIGIN } from "../site.config.mjs";
 const distDir = fileURLToPath(new URL("../dist/", import.meta.url));
 const failures = [];
 

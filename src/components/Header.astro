@@ -11,8 +11,7 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     <a class="brand" href="/">
       <img class="brand-mark" src="/apple-touch-icon.png" alt="" width="28" height="28" />
       <span class="brand-text">
-        <span class="brand-name" translate="no">vakesz.com</span>
-        <span class="brand-tag">{SITE.jobTitle}</span>
+        <span class="brand-name" translate="no">vakesz.</span>
       </span>
     </a>
 
@@ -96,9 +95,9 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
   }
   .wrap {
     max-width: var(--content-wide);
+    width: calc(100% - 6rem);
     margin: 0 auto;
-    padding: 0.85rem max(1.25rem, env(safe-area-inset-right)) 0.85rem
-      max(1.25rem, env(safe-area-inset-left));
+    padding: 0.85rem 0;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -130,25 +129,14 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     min-width: 0;
   }
   .brand-name {
-    font-size: 1rem;
+    color: var(--accent);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.055em;
     line-height: 1.1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  .brand-tag {
-    margin-top: 2px;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    line-height: 1.1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
   }
   .nav-desktop {
     margin-left: auto;
@@ -174,7 +162,7 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     color: var(--ink);
   }
   .nav-desktop a[aria-current="page"] {
-    color: var(--ink);
+    color: var(--accent);
     border-bottom-color: var(--accent);
   }
 
@@ -190,7 +178,7 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     border-radius: 999px;
     font-size: 0.88rem;
     font-weight: 500;
-    color: #fff;
+    color: var(--bg);
     background-image: var(--gradient-brand);
     border: 1px solid transparent;
     text-decoration: none;
@@ -338,6 +326,12 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     pointer-events: auto;
   }
 
+  @media (max-width: 760px) {
+    .wrap {
+      width: calc(100% - 2.5rem);
+    }
+  }
+
   @media (max-width: 720px) {
     .nav-desktop {
       display: none;
@@ -364,14 +358,14 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
 
   @media (max-width: 420px) {
     .wrap {
-      padding: 0.7rem 1rem;
+      padding: 0.7rem 0;
       gap: 0.5rem;
     }
     .header-actions {
       gap: 0.35rem;
     }
     .brand-name {
-      font-size: 0.95rem;
+      font-size: 1.25rem;
     }
   }
 </style>

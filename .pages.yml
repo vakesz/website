@@ -1,4 +1,4 @@
-# Pages CMS — https://pagescms.org/docs/
+# Pages CMS, https://pagescms.org/docs/
 # Edit this site at https://app.pagescms.org after installing the GitHub app.
 
 media:
@@ -19,13 +19,23 @@ media:
     output: ../../assets/covers
     categories: [image]
 
+  - name: projectImages
+    label: Project images
+    input: src/assets/projects
+    output: ../../assets/projects
+    categories: [image]
+
 content:
   - name: posts
     label: Posts
     type: collection
     path: src/content/posts
     format: yaml-frontmatter
-    filename: "{primary}.mdx"
+    filename:
+      template: "{primary}.md"
+      field: create
+    operations:
+      rename: false
     view:
       fields: [title, pubDate, draft, tags]
       primary: title
@@ -38,7 +48,13 @@ content:
       - { name: description, type: text, required: true, options: { maxlength: 300 } }
       - { name: pubDate, label: Published, type: date, required: true }
       - { name: updatedDate, label: Updated, type: date }
-      - { name: draft, type: boolean, default: false }
+      - {
+          name: draft,
+          label: Draft,
+          type: boolean,
+          default: true,
+          description: "Keep enabled while writing. Turn off to publish on the next site build.",
+        }
       - { name: tags, type: string, list: true }
       - name: cover
         label: Cover image
@@ -47,7 +63,7 @@ content:
           - { name: src, label: Image, type: image, options: { media: covers } }
           - { name: alt, label: Alt text, type: string, required: true }
           - { name: caption, type: string }
-      - { name: body, label: Body, type: rich-text }
+      - { name: body, label: Body, type: rich-text, options: { media: content, switcher: true } }
 
   - name: projects
     label: Projects
@@ -65,6 +81,21 @@ content:
     fields:
       - { name: title, type: string, required: true }
       - { name: description, type: text, required: true }
+      - { name: category, label: Project type, type: string, required: true }
+      - name: cover
+        label: Project image
+        type: object
+        fields:
+          - { name: src, label: Image, type: image, options: { media: projectImages } }
+          - { name: alt, label: Image description, type: string, required: true }
+      - name: imageStyle
+        label: Image presentation
+        type: select
+        default: screenshot
+        options:
+          values:
+            - { label: Screenshot, value: screenshot }
+            - { label: App icon, value: icon }
       - name: repo
         label: Repository URL
         type: string
@@ -81,7 +112,7 @@ content:
       - { name: pinned, type: boolean, default: false }
       - { name: archived, type: boolean, default: false }
       - { name: order, type: number, default: 0 }
-      - { name: body, label: Body, type: rich-text }
+      - { name: body, label: Body, type: rich-text, options: { media: content, switcher: true } }
 
   - name: about
     label: About page
@@ -89,7 +120,6 @@ content:
     path: src/content/pages/about.mdx
     format: yaml-frontmatter
     fields:
-      - { name: eyebrow, type: string }
       - {
           name: title,
           type: string,
@@ -99,7 +129,16 @@ content:
       - { name: titleAccent, label: Title accent, type: string }
       - { name: description, type: text, description: "Used for the page <meta description>." }
       - { name: lede, type: text }
-      - { name: body, label: Body, type: rich-text }
+      - { name: body, label: Body, type: rich-text, options: { media: content, switcher: true } }
+
+  - name: home
+    label: Homepage
+    type: file
+    path: src/data/home.json
+    format: json
+    fields:
+      - { name: headline, label: Main heading, type: string, required: true }
+      - { name: introduction, label: Introduction, type: text, required: true }
 
 settings:
   commit:
