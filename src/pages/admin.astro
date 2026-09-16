@@ -7,28 +7,24 @@ const sections = [
     description: "Write a post, add a cover, or update something you’ve published.",
     href: `${cms}/collection/posts`,
     action: "Manage posts",
-    mark: "01",
   },
   {
     title: "Portfolio",
     description: "Add projects, update screenshots, and choose your featured work.",
     href: `${cms}/collection/projects`,
     action: "Manage projects",
-    mark: "02",
   },
   {
     title: "Homepage",
     description: "Update your name and the short introduction on your front page.",
     href: `${cms}/file/home`,
     action: "Edit homepage",
-    mark: "03",
   },
   {
     title: "About page",
     description: "Keep your background, interests, and current work up to date.",
     href: `${cms}/file/about`,
     action: "Edit about",
-    mark: "04",
   },
 ];
 ---
@@ -43,7 +39,7 @@ const sections = [
   width="wide"
   ><a class="back-link" href="/">← Back to website</a><header class="admin-heading">
     <div>
-      <h1>Admin<span class="gradient">.</span></h1><p class="lede">
+      <h1>Admin<span class="accent">.</span></h1><p class="lede">
         Write and edit with Pages CMS. Sign in with the GitHub account that has access to your site.
       </p>
     </div><a class="btn btn-primary" href={`${cms}/collection/posts/new`}>Write a post ↗</a>
@@ -74,8 +70,6 @@ const sections = [
       <h2>From draft to published</h2><p>
         New posts start as drafts. When you’re ready, turn Draft off and save. Your connected
         Cloudflare project publishes after its next successful build.
-      </p><p class="admin-note">
-        The Homepage editor becomes available after this configuration reaches GitHub.
       </p>
     </div>
   </section></Base
@@ -112,11 +106,6 @@ const sections = [
   .admin-card:hover {
     border-color: var(--accent);
   }
-  .admin-mark {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-  }
   .admin-card h2 {
     font-size: 1.6rem;
     margin: 0 0 0.8rem;
@@ -141,9 +130,6 @@ const sections = [
   .admin-info p {
     color: var(--muted);
     font-size: 0.95rem;
-  }
-  .admin-note {
-    font-size: 0.875rem !important;
   }
   @media (max-width: 760px) {
     .admin-heading {

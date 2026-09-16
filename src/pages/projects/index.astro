@@ -12,9 +12,9 @@ const projects = await loadProjects();
     description: "Native apps, web tools, and open-source projects by Gábor Pinkova.",
   }}
   width="wide"
-  ><header class="page-hero portfolio-header"><h1>Portfolio.</h1></header><div
-    class="grid-2 portfolio-grid"
-  >
+  ><header class="page-header portfolio-header">
+    <h1>Portfolio<span class="accent">.</span></h1>
+  </header><div class="grid-2 portfolio-grid">
     {projects.map((project) => <ProjectCard project={project} headingLevel={2} />)}
   </div></Base
 >
@@ -30,11 +30,6 @@ const projects = await loadProjects();
   .portfolio-header h1 {
     margin-bottom: 0;
   }
-  .portfolio-header .lede {
-    max-width: 34ch;
-    margin-bottom: 0.3rem;
-    font-size: 1.05rem;
-  }
   .portfolio-grid {
     row-gap: 3.5rem;
   }
@@ -42,13 +37,6 @@ const projects = await loadProjects();
     .portfolio-header {
       display: block;
       padding-bottom: 2rem;
-    }
-    .portfolio-header .lede {
-      margin: 1.5rem 0 0;
-      max-width: 44ch;
-    }
-    .portfolio-header h1 br {
-      display: none;
     }
   }
 </style>

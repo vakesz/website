@@ -2,7 +2,7 @@
 import { render } from "astro:content";
 import Post from "../../layouts/Post.astro";
 import YouTube from "../../components/YouTube.astro";
-import PostFooter from "../../components/PostFooter.astro";
+import PostNav from "../../components/PostNav.astro";
 import { loadPostCatalog } from "../../lib/content";
 
 export async function getStaticPaths() {
@@ -22,17 +22,7 @@ const minutesRead = remarkPluginFrontmatter?.minutesRead as number | undefined;
 const wordCount = remarkPluginFrontmatter?.wordCount as number | undefined;
 ---
 
-<Post
-  title={post.data.title}
-  description={post.data.description}
-  slug={post.id}
-  pubDate={post.data.pubDate}
-  updatedDate={post.data.updatedDate}
-  tags={post.data.tags}
-  cover={post.data.cover}
-  minutesRead={minutesRead}
-  wordCount={wordCount}
->
+<Post post={post} minutesRead={minutesRead} wordCount={wordCount}>
   <Content components={{ YouTube }} />
-  <PostFooter prev={prev} next={next} slot="after" />
+  <PostNav prev={prev} next={next} slot="after" />
 </Post>

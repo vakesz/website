@@ -1,7 +1,5 @@
 (function () {
-  // Record JavaScript availability before content paints, then select the
-  // initial color theme without waiting for the bundled runtime scripts.
-  document.documentElement.classList.add("js");
+  // Select the color theme before first paint, ahead of the bundled scripts.
   try {
     const saved = localStorage.getItem("theme");
     const savedTheme = saved === "light" || saved === "dark" ? saved : null;

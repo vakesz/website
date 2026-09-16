@@ -138,6 +138,12 @@ content:
     format: json
     fields:
       - { name: headline, label: Main heading, type: string, required: true }
+      - {
+          name: headlineAccent,
+          label: Heading accent,
+          type: string,
+          description: "Accent-coloured ending of the heading, such as a name.",
+        }
       - { name: introduction, label: Introduction, type: text, required: true }
 
 settings:

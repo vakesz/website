@@ -3,7 +3,7 @@ import { getEntry, render } from "astro:content";
 import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
-import SocialIcons from "../components/SocialIcons.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import wexlPhoto from "../assets/img/wexl.webp";
 
 const entry = await getEntry("pages", "about");
@@ -28,7 +28,7 @@ const { title, titleAccent, description, lede } = entry.data;
 
     <PageHeader title={title} accented={titleAccent} lede={lede}>
       <div class="about-social">
-        <SocialIcons />
+        <SocialLinks />
       </div>
     </PageHeader>
   </section>
@@ -47,7 +47,7 @@ const { title, titleAccent, description, lede } = entry.data;
     margin: 0.5rem 0 2.5rem;
   }
 
-  .about-intro :global(.page-hero) {
+  .about-intro :global(.page-header) {
     margin: 0;
     padding-top: 0.25rem;
   }

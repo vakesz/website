@@ -1,0 +1,75 @@
+---
+import { Picture } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  project: CollectionEntry<"projects">;
+  large?: boolean;
+}
+const { project, large = false } = Astro.props;
+const { cover, imageStyle } = project.data;
+if (!cover) throw new Error(`Project "${project.id}" has no cover image.`);
+const icon = imageStyle === "icon";
+---
+
+<div class:list={["project-art", imageStyle, large && "large"]}>
+  <Picture
+    src={cover.src}
+    alt={cover.alt}
+    widths={icon ? [200, 400] : [600, 1000]}
+    sizes={icon ? "(max-width:760px) 96px, 150px" : "(max-width:760px) 90vw, 550px"}
+    formats={["avif", "webp"]}
+    loading="lazy"
+  />
+</div>
+<style>
+  .project-art {
+    aspect-ratio: 1.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .screenshot :global(picture) {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+  }
+  .screenshot :global(img) {
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 15px 26px -17px color-mix(in oklab, var(--ink) 50%, transparent);
+  }
+  .icon :global(img) {
+    width: 132px;
+    height: 132px;
+    border-radius: 24px;
+    filter: drop-shadow(0 12px 16px color-mix(in oklab, var(--ink) 22%, transparent));
+  }
+  .large {
+    aspect-ratio: 2.3;
+    padding: 2.5rem;
+  }
+  .large.icon :global(img) {
+    width: 150px;
+    height: 150px;
+    border-radius: 32px;
+  }
+  @media (max-width: 760px) {
+    .project-art,
+    .large {
+      aspect-ratio: 1.7;
+      padding: 1.3rem;
+    }
+    .icon :global(img),
+    .large.icon :global(img) {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+    }
+  }
+</style>

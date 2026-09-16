@@ -4,8 +4,12 @@ import Base from "../../layouts/Base.astro";
 import PostCard from "../../components/PostCard.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { loadPostCatalog } from "../../lib/content";
-const { posts, years, tags } = await loadPostCatalog();
-const featured = posts[0];
+const catalog = await loadPostCatalog();
+const { tags } = catalog;
+const [featured, ...rest] = catalog.posts;
+const years = catalog.years
+  .map((group) => ({ ...group, posts: group.posts.filter((post) => rest.includes(post)) }))
+  .filter((group) => group.posts.length > 0);
 ---
 
 <Base
@@ -15,8 +19,8 @@ const featured = posts[0];
     description: "Notes on software engineering, automotive systems, and a career built by doing.",
   }}
   width="wide"
-  ><header class="page-hero blog-header">
-    <h1>Blog<span class="gradient">.</span></h1><a class="text-link" href="/rss.xml">RSS ↗</a>
+  ><header class="page-header blog-header">
+    <h1>Blog<span class="accent">.</span></h1><a class="text-link" href="/rss.xml">RSS ↗</a>
   </header>{
     featured && (
       <a href={`/posts/${featured.id}/`} class="featured-post">
@@ -91,11 +95,6 @@ const featured = posts[0];
   .blog-header h1 {
     margin-bottom: 0;
   }
-  .blog-header .lede {
-    font-size: 1.075rem;
-    max-width: 33ch;
-    margin-bottom: 0.5rem;
-  }
   .featured-post {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -128,16 +127,9 @@ const featured = posts[0];
     line-height: 1.2;
     margin: 0 0 1rem;
   }
-  .featured-copy > p:not(.eyebrow) {
+  .featured-copy > p {
     font-size: 0.95rem;
     color: var(--muted);
-  }
-  .featured-copy .eyebrow {
-    font-size: 0.75rem;
-    margin-bottom: 1.2rem;
-  }
-  .featured-copy .eyebrow span {
-    color: var(--accent);
   }
   .featured-meta {
     display: flex;
@@ -217,9 +209,6 @@ const featured = posts[0];
   @media (max-width: 760px) {
     .blog-header {
       gap: 1rem;
-    }
-    .blog-header h1 br {
-      display: none;
     }
     .featured-post {
       grid-template-columns: 1fr;

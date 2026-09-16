@@ -1,7 +1,7 @@
 # Editing vakesz.com
 
 Open `/admin/` on the site, or [Pages CMS](https://app.pagescms.org/vakesz/vakesz/main).
-Sign in with GitHub and authorize the Pages CMS GitHub app for `vakesz/vakesz` if it is not connected yet. The new configuration must reach that repository before the Homepage editor and project image fields are available.
+Sign in with GitHub and authorize the Pages CMS GitHub app for `vakesz/vakesz` if it is not connected yet.
 
 ## Write a post
 

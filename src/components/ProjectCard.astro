@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import ProjectVisual from "./ProjectVisual.astro";
+import ProjectCover from "./ProjectCover.astro";
 interface Props {
   project: CollectionEntry<"projects">;
   headingLevel?: 2 | 3;
@@ -15,7 +15,7 @@ const id = project.id;
   class:list={["project-card", id, !project.data.cover && "text-only"]}
   aria-labelledby={`project-${id}-title`}
 >
-  {project.data.cover && <ProjectVisual project={project} />}
+  {project.data.cover && <ProjectCover project={project} />}
   <div class="project-details">
     <div class="project-title">
       <Heading id={`project-${id}-title`}>{project.data.title}</Heading><span aria-hidden="true"
@@ -36,14 +36,6 @@ const id = project.id;
   }
   .project-card:hover :global(.project-art) {
     transform: translateY(-3px);
-  }
-  .project-category {
-    margin: 1.5rem 0 0.6rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--muted);
   }
   .project-details {
     padding-top: 1.2rem;
@@ -91,10 +83,5 @@ const id = project.id;
     content: "·";
     position: absolute;
     left: -0.55rem;
-  }
-  @media (max-width: 760px) {
-    .project-category {
-      margin-top: 1.2rem;
-    }
   }
 </style>

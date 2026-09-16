@@ -28,12 +28,12 @@ const { tag, posts } = Astro.props;
   <PageHeader eyebrow="Tag" title="#" accented={tag}>
     <Fragment slot="lede">
       {posts.length}{" "}
-      {posts.length === 1 ? "post" : "posts"} tagged <code>{tag}</code>.
+      {posts.length === 1 ? "post" : "posts"} tagged #{tag}.{" "}
       <a href="/tags/">All tags →</a>
     </Fragment>
   </PageHeader>
 
-  <div class="stack">
+  <div>
     {posts.map((post) => <PostCard post={post} headingLevel={2} />)}
   </div>
 </Base>

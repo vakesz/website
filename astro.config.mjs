@@ -14,8 +14,6 @@ export default defineConfig({
     mdx(),
     sitemap({ filter: (page) => !new URL(page).pathname.startsWith("/admin") }),
   ],
-  // Preserve Astro 6's whitespace behavior during the v7 migration.
-  compressHTML: true,
   markdown: {
     // This site has custom remark/rehype plugins, so keep Astro's unified pipeline.
     processor: unified({

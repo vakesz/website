@@ -1,35 +1,19 @@
 ---
 import { Picture } from "astro:assets";
-import type { ImageMetadata } from "astro";
+import type { CollectionEntry } from "astro:content";
 import Base from "./Base.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { tagSlug } from "../lib/content";
 
 interface Props {
-  title: string;
-  description: string;
-  slug: string;
-  pubDate: Date;
-  updatedDate?: Date;
-  tags?: string[];
-  cover?: { src: ImageMetadata; alt: string; caption?: string };
+  post: CollectionEntry<"posts">;
   minutesRead?: number;
   wordCount?: number;
 }
 
-const {
-  title,
-  description,
-  slug,
-  pubDate,
-  updatedDate,
-  tags = [],
-  cover,
-  minutesRead,
-  wordCount,
-} = Astro.props;
-
-const ogImage = `/og/${slug}.png`;
+const { post, minutesRead, wordCount } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, cover } = post.data;
+const ogImage = `/og/${post.id}.png`;
 ---
 
 <Base
@@ -46,8 +30,8 @@ const ogImage = `/og/${slug}.png`;
 >
   <a class="back-link" href="/posts/">← Blog</a>
   <article class="prose post">
-    <header class="post-header page-hero">
-      <h1><span class="gradient">{title}</span></h1>
+    <header class="post-header page-header">
+      <h1>{title}</h1>
       <p class="post-meta">
         <FormattedDate date={pubDate} />
         {
@@ -148,9 +132,6 @@ const ogImage = `/og/${slug}.png`;
     text-align: center;
     color: var(--muted);
     font-size: 0.86rem;
-  }
-  .post-body {
-    font-size: 1.3rem;
   }
   .tag-list {
     list-style: none;

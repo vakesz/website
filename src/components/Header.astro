@@ -10,9 +10,7 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
   <div class="wrap">
     <a class="brand" href="/">
       <img class="brand-mark" src="/apple-touch-icon.png" alt="" width="28" height="28" />
-      <span class="brand-text">
-        <span class="brand-name" translate="no">vakesz.</span>
-      </span>
+      <span class="brand-name" translate="no">vakesz.</span>
     </a>
 
     <nav class="nav-desktop" aria-label="Primary">
@@ -116,17 +114,14 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     flex: none;
     width: 28px;
     height: 28px;
-    border-radius: 6px;
-    display: block;
-    /* drop-shadow follows the PNG's alpha so corners stay rounded, unlike box-shadow. */
-    filter: drop-shadow(0 1px 2px color-mix(in oklab, var(--ink) 28%, transparent));
+    padding: 3px;
+    border-radius: 7px;
+    /* The glyph is white, so the light theme needs a dark tile behind it. */
+    background: #192021;
   }
-  .brand-text {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 1;
-    min-width: 0;
+  :global(html[data-theme="dark"]) .brand-mark {
+    padding: 0;
+    background: transparent;
   }
   .brand-name {
     color: var(--accent);
@@ -179,7 +174,7 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     font-size: 0.88rem;
     font-weight: 500;
     color: var(--bg);
-    background-image: var(--gradient-brand);
+    background: var(--accent);
     border: 1px solid transparent;
     text-decoration: none;
     transition:

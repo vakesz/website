@@ -6,7 +6,7 @@
   Location: Hungary
 
 /* SITE */
-  Last update: 2026/08
+  Last update: 2026/09
   Standards: HTML5, CSS, semantic markup
   Components: Astro, MDX
   Software: pnpm, Prettier
@@ -15,8 +15,8 @@
   Type: Static site (no tracking, no cookies, no consent banners)
 
 /* TYPOGRAPHY */
-  Sans: system-ui
-  Mono: ui-monospace
+  Sans: Instrument Sans
+  Mono: SFMono-Regular, Consolas
 
 /* THANKS */
   Astro team for an excellent static-site framework.

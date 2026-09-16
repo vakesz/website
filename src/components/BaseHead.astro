@@ -108,4 +108,4 @@ const jsonLd = (value: object) => JSON.stringify(value).replaceAll("<", "\\u003c
 <script type="application/ld+json" is:inline set:html={jsonLd(personLd)} />
 {articleLd && <script type="application/ld+json" is:inline set:html={jsonLd(articleLd)} />}
 
-<script is:inline src="/document-init.js"></script>
+<script is:inline src="/theme-init.js"></script>

@@ -4,19 +4,12 @@
   font-weight: 400 700;
   font-display: swap;
 }
-@font-face {
-  font-family: "Instrument Serif";
-  src: url("../assets/fonts/instrument-serif.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-}
 :root {
   --bg: #fcfcfc;
   --surface: #f2f3f3;
   --ink: #192021;
   --muted: #626a6b;
   --accent: #bb2772;
-  --accent-2: #bb2772;
   --border: #dedfdf;
   --radius: 10px;
   --radius-sm: 6px;
@@ -24,7 +17,6 @@
   --font-mono: "SFMono-Regular", Consolas, monospace;
   --content: 780px;
   --content-wide: 1160px;
-  --gradient-brand: linear-gradient(var(--accent), var(--accent));
   color-scheme: light;
 }
 html[data-theme="dark"] {
@@ -33,7 +25,6 @@ html[data-theme="dark"] {
   --ink: #eff1ef;
   --muted: #a4acab;
   --accent: #f19bc8;
-  --accent-2: #f19bc8;
   --border: #363c3d;
   color-scheme: dark;
 }
@@ -136,8 +127,8 @@ main {
   color: var(--muted);
   margin-bottom: 1.4rem;
 }
-.gradient {
-  color: inherit;
+.accent {
+  color: var(--accent);
 }
 .lede {
   font-size: 1.16rem;
@@ -145,16 +136,16 @@ main {
   max-width: 57ch;
   color: var(--muted);
 }
-.page-hero {
+.page-header {
   margin: 0 0 3.5rem;
 }
-.page-hero h1 {
+.page-header h1 {
   margin-bottom: 1.2rem;
 }
-.page-hero.center {
+.page-header.center {
   text-align: center;
 }
-.page-hero.center .lede {
+.page-header.center .lede {
   margin-inline: auto;
 }
 .btn {
@@ -206,48 +197,14 @@ main {
   font-size: 1.8rem;
   margin: 0;
 }
-.section-heading h2 small {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  vertical-align: top;
-  margin-left: 0.55rem;
-  color: var(--muted);
-  font-weight: 400;
-  letter-spacing: 0;
-}
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 1rem;
-}
-.section-label::before {
-  content: "";
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-}
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2.6rem 2rem;
 }
-.stack {
-  display: grid;
-  gap: 0;
-}
 .section-block {
   padding: 4.3rem 0;
   border-top: 1px solid var(--border);
-}
-.muted {
-  color: var(--muted);
 }
 .prose {
   font-size: 1.075rem;
@@ -356,15 +313,6 @@ main {
 .post-body {
   max-width: 65ch;
   margin-inline: auto;
-  font-family: "Instrument Serif", Georgia, serif;
-  font-size: 1.3rem;
-  line-height: 1.7;
-}
-.post-body h2,
-.post-body h3,
-.post-body table,
-.post-body pre {
-  font-family: var(--font-sans);
 }
 html[data-theme="dark"] .astro-code,
 html[data-theme="dark"] .astro-code span {
@@ -384,7 +332,7 @@ html[data-theme="dark"] .astro-code span {
   .section-block {
     padding: 3rem 0;
   }
-  .page-hero {
+  .page-header {
     margin-bottom: 2.5rem;
   }
   .section-heading h2 {

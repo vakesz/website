@@ -52,7 +52,6 @@ const pages = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/pages" }),
   schema: z.object({
     title: z.string(),
-    eyebrow: z.string().optional(),
     titleAccent: z.string().optional(),
     description: z.string().optional(),
     lede: z.string().optional(),

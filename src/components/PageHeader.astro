@@ -10,16 +10,16 @@ const { eyebrow, title, accented, lede, align = "left" } = Astro.props;
 const hasLede = Boolean(lede) || Astro.slots.has("lede");
 ---
 
-<header class:list={["page-hero", align]}>
+<header class:list={["page-header", align]}>
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   <h1>
     {
       accented ? (
         <>
-          {title} <span class="gradient">{accented}</span>
+          {title} <span class="accent">{accented}</span>
         </>
       ) : (
-        <span class="gradient">{title}</span>
+        <span class="accent">{title}</span>
       )
     }
   </h1>

@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Base from "./Base.astro";
-import ProjectVisual from "../components/ProjectVisual.astro";
+import ProjectCover from "../components/ProjectCover.astro";
 interface Props {
   project: CollectionEntry<"projects">;
 }
@@ -27,7 +27,7 @@ const { title, description, repo, homepage, stack, category, archived } = projec
           )
         }
       </div>
-    </header>{project.data.cover && <ProjectVisual project={project} large />}<div
+    </header>{project.data.cover && <ProjectCover project={project} large />}<div
       class="project-body"
     >
       <aside>
