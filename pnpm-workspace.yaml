@@ -6,3 +6,8 @@ overrides:
   # Astro's dev-only YAML language server can resolve yaml below 2.9.0,
   # which pnpm audit flags. Remove this once upstream guarantees 2.9.0+.
   yaml-language-server>yaml: 2.9.0
+  # @napi-rs/wasm-runtime accepts emnapi 2.x betas as peers, and pnpm paired
+  # @emnapi/runtime 2.0.0-beta with @emnapi/core 1.x, which crashes on load
+  # ("bridge.setLastError is not a function"). Keep both on the same stable line.
+  "@emnapi/core": 1.11.3
+  "@emnapi/runtime": 1.11.3
