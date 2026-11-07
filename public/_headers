@@ -4,10 +4,10 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Cross-Origin-Opener-Policy: same-origin
-  Cache-Control: no-transform
+  Cache-Control: public, max-age=0, must-revalidate, no-transform
   Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; script-src 'self'
 
 https://:project.pages.dev/*
@@ -16,5 +16,32 @@ https://:project.pages.dev/*
 https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
 
+# Matching rules join Cache-Control values, so detach the /* value first.
 /_astro/*
-  Cache-Control: public, max-age=31536000, immutable
+  ! Cache-Control
+  Cache-Control: public, max-age=31536000, immutable, no-transform
+
+/favicon.ico
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800, no-transform
+
+/favicon-16x16.png
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800, no-transform
+
+/favicon-32x32.png
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800, no-transform
+
+/apple-touch-icon.png
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800, no-transform
+
+/site.webmanifest
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800, no-transform
+
+# Unhashed script, keep it short so theme fixes reach visitors quickly.
+/theme-init.js
+  ! Cache-Control
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400, no-transform

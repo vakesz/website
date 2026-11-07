@@ -203,10 +203,16 @@ const scriptSrc = csp
   .map((directive) => directive.trim())
   .find((directive) => directive.startsWith("script-src "));
 check(Boolean(csp), "_headers is missing Content-Security-Policy");
+const hasNoTransform = (value) =>
+  value.split(",").some((directive) => directive.trim() === "no-transform");
 check(
-  /^\s*Cache-Control:\s*no-transform\s*$/m.test(globalHeaders ?? ""),
+  hasNoTransform(globalHeaders?.match(/^\s*Cache-Control:\s*(.+)$/m)?.[1] ?? ""),
   "global headers must prevent Cloudflare from injecting CSP-incompatible scripts",
 );
+// `! Cache-Control` detaches the global value, so every rule must restate no-transform.
+for (const [, value] of headers.matchAll(/^\s*Cache-Control:\s*(.+)$/gm)) {
+  check(hasNoTransform(value), `Cache-Control "${value.trim()}" must include no-transform`);
+}
 check(scriptSrc === "script-src 'self'", "CSP must allow only same-origin executable scripts");
 check(!scriptSrc?.includes("sha256-"), "CSP must not rely on hand-maintained script hashes");
 
