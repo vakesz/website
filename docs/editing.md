@@ -16,7 +16,7 @@ Saving commits content to the `main` branch on GitHub. If the Cloudflare project
 
 ## Edit other content
 
-- Portfolio manages project descriptions, images, links, and technology lists. Pinned projects appear on the homepage, up to two, ordered by the Order field.
+- Projects manages project descriptions, images, links, and technology lists. Cards are text-only; the image appears on the project page. Pinned projects appear on the homepage, up to two, ordered by the Order field.
 - Homepage edits the main heading and introduction.
 - About page edits the page heading, introduction, and body.
 - Media contains separate folders for body images, post covers, and project images.

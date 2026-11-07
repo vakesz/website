@@ -40,14 +40,30 @@ content:
       fields: [title, pubDate, draft, tags]
       primary: title
       sort: [pubDate, title, draft]
+      search: [title, description, tags]
       default:
         sort: pubDate
         order: desc
     fields:
-      - { name: title, type: string, required: true }
-      - { name: description, type: text, required: true, options: { maxlength: 300 } }
-      - { name: pubDate, label: Published, type: date, required: true }
-      - { name: updatedDate, label: Updated, type: date }
+      - { name: title, type: string, required: true, options: { maxlength: 120 } }
+      - name: description
+        label: Summary
+        type: text
+        required: true
+        description: "Shown in post lists, search results and link previews. Aim for one or two sentences."
+        options: { maxlength: 170 }
+      - name: pubDate
+        label: Published
+        type: date
+        required: true
+        description: "Posts dated in the future stay hidden until a build runs after that date."
+        options: { format: yyyy-MM-dd }
+      - name: updatedDate
+        label: Updated
+        type: date
+        default: ""
+        description: "Only set this after a meaningful revision."
+        options: { format: yyyy-MM-dd }
       - {
           name: draft,
           label: Draft,
@@ -55,13 +71,21 @@ content:
           default: true,
           description: "Keep enabled while writing. Turn off to publish on the next site build.",
         }
-      - { name: tags, type: string, list: true }
+      - name: tags
+        type: string
+        list: true
+        description: "Lowercase, reuse existing tags where possible (e.g. automotive, career)."
       - name: cover
         label: Cover image
         type: object
+        description: "Optional. Shown at the top of the post."
         fields:
-          - { name: src, label: Image, type: image, options: { media: covers } }
-          - { name: alt, label: Alt text, type: string, required: true }
+          - { name: src, label: Image, type: image, required: true, options: { media: covers } }
+          - name: alt
+            label: Image description
+            type: string
+            required: true
+            description: "Describe what the image shows, for screen readers."
           - { name: caption, type: string }
       - { name: body, label: Body, type: rich-text, options: { media: content, switcher: true } }
 
@@ -70,28 +94,49 @@ content:
     type: collection
     path: src/content/projects
     format: yaml-frontmatter
-    filename: "{primary}.md"
+    filename:
+      template: "{primary}.md"
+      field: create
+    operations:
+      rename: false
     view:
-      fields: [title, pinned, archived, order]
+      fields: [title, category, pinned, archived, order]
       primary: title
       sort: [order, title, pinned, archived]
+      search: [title, description, stack]
       default:
         sort: order
         order: asc
     fields:
-      - { name: title, type: string, required: true }
-      - { name: description, type: text, required: true }
-      - { name: category, label: Project type, type: string, required: true }
+      - { name: title, type: string, required: true, options: { maxlength: 80 } }
+      - name: description
+        type: text
+        required: true
+        description: "One sentence. Shown on project cards and as the page summary."
+        options: { maxlength: 160 }
+      - name: category
+        label: Project type
+        type: string
+        required: true
+        description: "Shown above the title on cards, e.g. macOS application."
       - name: cover
         label: Project image
         type: object
+        description: "Optional. Shown on the project page only; cards are text."
         fields:
-          - { name: src, label: Image, type: image, options: { media: projectImages } }
+          - {
+              name: src,
+              label: Image,
+              type: image,
+              required: true,
+              options: { media: projectImages },
+            }
           - { name: alt, label: Image description, type: string, required: true }
       - name: imageStyle
         label: Image presentation
         type: select
         default: screenshot
+        description: "App icon shows the image small and centred; Screenshot fills the frame."
         options:
           values:
             - { label: Screenshot, value: screenshot }
@@ -108,10 +153,21 @@ content:
         pattern:
           regex: "^https?://"
           message: Must start with http(s)://
-      - { name: stack, type: string, list: true }
-      - { name: pinned, type: boolean, default: false }
-      - { name: archived, type: boolean, default: false }
-      - { name: order, type: number, default: 0 }
+      - { name: stack, label: Built with, type: string, list: true }
+      - name: pinned
+        label: Show on homepage
+        type: boolean
+        default: false
+        description: "Up to two pinned projects appear on the homepage, by Order."
+      - name: archived
+        type: boolean
+        default: false
+        description: "Marks the project as no longer maintained."
+      - name: order
+        type: number
+        default: 0
+        description: "Lower numbers come first."
+        options: { min: 0 }
       - { name: body, label: Body, type: rich-text, options: { media: content, switcher: true } }
 
   - name: about
@@ -120,15 +176,14 @@ content:
     path: src/content/pages/about.mdx
     format: yaml-frontmatter
     fields:
+      - { name: title, type: string, required: true, description: "Page heading, e.g. About." }
       - {
-          name: title,
-          type: string,
-          required: true,
-          description: "Text before the optional accented title ending.",
+          name: description,
+          type: text,
+          description: "Shown in search results and link previews.",
+          options: { maxlength: 170 },
         }
-      - { name: titleAccent, label: Title accent, type: string }
-      - { name: description, type: text, description: "Used for the page <meta description>." }
-      - { name: lede, type: text }
+      - { name: lede, label: Introduction, type: text }
       - { name: body, label: Body, type: rich-text, options: { media: content, switcher: true } }
 
   - name: home
