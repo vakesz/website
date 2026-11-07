@@ -1,15 +1,8 @@
 ---
-import { Picture } from "astro:assets";
 import Base from "../../layouts/Base.astro";
 import PostCard from "../../components/PostCard.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
 import { loadPostCatalog } from "../../lib/content";
-const catalog = await loadPostCatalog();
-const { tags } = catalog;
-const [featured, ...rest] = catalog.posts;
-const years = catalog.years
-  .map((group) => ({ ...group, posts: group.posts.filter((post) => rest.includes(post)) }))
-  .filter((group) => group.posts.length > 0);
+const { posts } = await loadPostCatalog();
 ---
 
 <Base
@@ -18,222 +11,35 @@ const years = catalog.years
     title: "Blog",
     description: "Notes on software engineering, automotive systems, and a career built by doing.",
   }}
-  width="wide"
-  ><header class="page-header blog-header">
-    <h1>Blog<span class="accent">.</span></h1><a class="text-link" href="/rss.xml">RSS ↗</a>
-  </header>{
-    featured && (
-      <a href={`/posts/${featured.id}/`} class="featured-post">
-        <>
-          <div class="featured-image">
-            {featured.data.cover && (
-              <Picture
-                src={featured.data.cover.src}
-                alt={featured.data.cover.alt}
-                widths={[640, 1100]}
-                sizes="(max-width:760px) 100vw, 580px"
-                formats={["avif", "webp"]}
-                loading="eager"
-              />
-            )}
-          </div>
-          <div class="featured-copy">
-            <>
-              <h2>{featured.data.title}</h2>
-              <p>{featured.data.description}</p>
-              <div class="featured-meta">
-                <>
-                  <FormattedDate date={featured.data.pubDate} short />
-                  <span>Read the story ↗</span>
-                </>
-              </div>
-            </>
-          </div>
-        </>
-      </a>
-    )
-  }
-  <div class="blog-body">
-    <div>
-      {
-        years.map(({ year, posts: entries }) => (
-          <section class="year-block">
-            <>
-              <h2 class="year">{year}</h2>
-              <div>
-                {entries.map((post) => (
-                  <PostCard post={post} />
-                ))}
-              </div>
-            </>
-          </section>
-        ))
-      }
-    </div><aside>
-      <h2>Explore by topic</h2><div class="topic-links">
-        {
-          tags.map((tag) => (
-            <a href={`/tags/${tag.slug}/`}>
-              <>
-                <span>{tag.label}</span>
-                <span>{tag.posts.length}</span>
-              </>
-            </a>
-          ))
-        }
-      </div><a class="text-link" href="/tags/">All topics →</a>
-    </aside>
-  </div></Base
 >
+  <header class="page-header blog-header">
+    <h1>Blog</h1>
+    <a class="text-link" href="/rss.xml">
+      RSS feed
+    </a>
+  </header>
+  <div class="post-list">
+    {posts.map((post) => (
+      <PostCard post={post} headingLevel={2} />
+    ))}
+  </div>
+  <p class="topics">
+    <a class="text-link" href="/tags/">
+      Browse by tag
+    </a>
+  </p>
+</Base>
 <style>
   .blog-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     gap: 2rem;
   }
   .blog-header h1 {
     margin-bottom: 0;
   }
-  .featured-post {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--surface);
-    margin-bottom: 4rem;
-  }
-  .featured-image {
-    min-height: 300px;
-  }
-  .featured-image :global(picture) {
-    height: 100%;
-    display: block;
-  }
-  .featured-image :global(img) {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-  .featured-copy {
-    padding: 2.4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .featured-copy h2 {
-    font-size: 2rem;
-    line-height: 1.2;
-    margin: 0 0 1rem;
-  }
-  .featured-copy > p {
-    font-size: 0.95rem;
-    color: var(--muted);
-  }
-  .featured-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.75rem;
-    margin-top: 1rem;
-    color: var(--muted);
-  }
-  .featured-meta > span {
-    color: var(--ink);
-    font-weight: 700;
-  }
-  .blog-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 220px;
-    gap: 5rem;
-  }
-  .year-block {
-    display: grid;
-    grid-template-columns: 60px minmax(0, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-  }
-  .year {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    letter-spacing: 0;
-    margin: 0.25rem 0;
-    color: var(--muted);
-    font-weight: 400;
-  }
-  aside {
-    border-left: 1px solid var(--border);
-    padding-left: 2rem;
-  }
-  aside h2 {
-    font-size: 0.9rem;
-    letter-spacing: -0.015em;
-    margin: 0.2rem 0 1.3rem;
-  }
-  .topic-links {
-    display: grid;
-    gap: 0.4rem;
-    margin-bottom: 1.5rem;
-  }
-  .topic-links a {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.825rem;
-    padding: 0.25rem 0;
-    color: var(--muted);
-  }
-  .topic-links a:hover {
-    color: var(--accent);
-  }
-  .topic-links a > span:last-child {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-  }
-  @media (max-width: 900px) {
-    .featured-copy {
-      padding: 1.7rem;
-    }
-    .featured-copy h2 {
-      font-size: 1.7rem;
-    }
-    .blog-body {
-      gap: 2.5rem;
-    }
-    .year-block {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-  }
-  @media (max-width: 760px) {
-    .blog-header {
-      gap: 1rem;
-    }
-    .featured-post {
-      grid-template-columns: 1fr;
-    }
-    .featured-image {
-      min-height: 0;
-      height: 210px;
-    }
-    .featured-copy {
-      padding: 1.5rem;
-    }
-    .blog-body {
-      grid-template-columns: 1fr;
-    }
-    .year-block {
-      gap: 1rem;
-    }
-    aside {
-      border-left: 0;
-      border-top: 1px solid var(--border);
-      padding: 2rem 0 0;
-    }
-    .topic-links {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem 2rem;
-    }
+  .topics {
+    margin: 1.5rem 0 0;
   }
 </style>

@@ -8,35 +8,24 @@ const projects = await loadProjects();
 <Base
   metadata={{
     kind: "page",
-    title: "Portfolio",
+    title: "Projects",
     description: "Native apps, web tools, and open-source projects by Gábor Pinkova.",
   }}
-  width="wide"
-  ><header class="page-header portfolio-header">
-    <h1>Portfolio<span class="accent">.</span></h1>
-  </header><div class="grid-2 portfolio-grid">
-    {projects.map((project) => <ProjectCard project={project} headingLevel={2} />)}
-  </div></Base
 >
+  <header class="page-header portfolio-header">
+    <h1>Projects</h1>
+  </header>
+  <div class="grid-2 portfolio-grid">
+    {projects.map((project) => (
+      <ProjectCard project={project} headingLevel={2} />
+    ))}
+  </div>
+</Base>
 <style>
-  .portfolio-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 3rem;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 3rem;
-  }
   .portfolio-header h1 {
     margin-bottom: 0;
   }
   .portfolio-grid {
     row-gap: 3.5rem;
-  }
-  @media (max-width: 760px) {
-    .portfolio-header {
-      display: block;
-      padding-bottom: 2rem;
-    }
   }
 </style>

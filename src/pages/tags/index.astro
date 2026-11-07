@@ -13,24 +13,17 @@ const { posts, tags } = await loadPostCatalog();
     description: "All tags used across posts on vakesz.com.",
   }}
 >
-  <PageHeader
-    eyebrow="Browse"
-    title="All"
-    accented="tags."
-    lede={`${tags.length} tags across ${posts.length} posts.`}
-  />
+  <PageHeader title="Tags" lede={`${tags.length} tags across ${posts.length} posts.`} />
 
   <ul class="tag-cloud">
-    {
-      tags.map(({ slug, label, posts: entries }) => (
-        <li>
-          <a href={`/tags/${slug}/`}>
-            <span>#{label}</span>
-            <span class="count">{entries.length}</span>
-          </a>
-        </li>
-      ))
-    }
+    {tags.map(({ slug, label, posts: entries }) => (
+      <li>
+        <a href={`/tags/${slug}/`}>
+          <span>#{label}</span>
+          <span class="count">{entries.length}</span>
+        </a>
+      </li>
+    ))}
   </ul>
 </Base>
 
@@ -48,9 +41,8 @@ const { posts, tags } = await loadPostCatalog();
     gap: 0.4rem;
     padding: 0.35rem 0.7rem;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     color: var(--ink);
-    font-family: var(--font-mono);
     font-size: 0.85rem;
     text-decoration: none;
   }

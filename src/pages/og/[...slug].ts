@@ -47,22 +47,22 @@ export const { getStaticPaths, GET } = await OGImageRoute({
     font: {
       title: {
         size: 64,
-        families: ["Inter", "system-ui", "sans-serif"],
+        families: ["Instrument Sans", "system-ui", "sans-serif"],
         weight: "Bold",
         color: [239, 241, 239],
         lineHeight: 1.15,
       },
       description: {
         size: 28,
-        families: ["Inter", "system-ui", "sans-serif"],
+        families: ["Instrument Sans", "system-ui", "sans-serif"],
         weight: "Normal",
         color: [164, 172, 171],
         lineHeight: 1.45,
       },
     },
     fonts: [
-      "./src/assets/fonts/inter-latin-400-normal.ttf",
-      "./src/assets/fonts/inter-latin-700-normal.ttf",
+      "./src/assets/fonts/instrument-sans-400.ttf",
+      "./src/assets/fonts/instrument-sans-700.ttf",
     ],
     footer: SITE.title,
   }),

@@ -10,25 +10,27 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
   <div class="wrap">
     <a class="brand" href="/">
       <img class="brand-mark" src="/apple-touch-icon.png" alt="" width="28" height="28" />
-      <span class="brand-name" translate="no">vakesz.</span>
+      <span class="brand-name" translate="no">
+        vakesz.
+      </span>
     </a>
 
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
-        {
-          NAV.map((item) => (
-            <li>
-              <a href={item.href} aria-current={isActiveNav(item.href) ? "page" : undefined}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
+        {NAV.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActiveNav(item.href) ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
 
     <div class="header-actions">
-      <a class="cta" href={`mailto:${SITE.email}`}>Get in touch</a>
+      <a class="cta" href={`mailto:${SITE.email}`}>
+        Get in touch
+      </a>
       <ThemeToggle />
       <button
         type="button"
@@ -60,17 +62,15 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
   </button>
   <nav aria-label="Mobile primary">
     <ul>
-      {
-        NAV.map((item) => (
-          <li>
-            <a href={item.href} aria-current={isActiveNav(item.href) ? "page" : undefined}>
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
+      {NAV.map((item) => (
+        <li>
+          <a href={item.href} aria-current={isActiveNav(item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        </li>
+      ))}
       <li class="drawer-cta">
-        <a href={`mailto:${SITE.email}`}>Get in touch →</a>
+        <a href={`mailto:${SITE.email}`}>Get in touch</a>
       </li>
     </ul>
   </nav>
@@ -115,7 +115,7 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     width: 28px;
     height: 28px;
     padding: 3px;
-    border-radius: 7px;
+    border-radius: var(--radius-sm);
     /* The glyph is white, so the light theme needs a dark tile behind it. */
     background: #192021;
   }
@@ -169,24 +169,21 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
   .cta {
     display: inline-flex;
     align-items: center;
-    padding: 0.45rem 0.95rem;
-    border-radius: 999px;
+    min-height: 38px;
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-sm);
     font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--bg);
-    background: var(--accent);
-    border: 1px solid transparent;
+    font-weight: 600;
+    color: var(--ink);
+    border: 1px solid var(--border);
     text-decoration: none;
     transition:
-      transform 150ms,
-      box-shadow 150ms,
-      filter 150ms;
-    box-shadow: 0 6px 20px -8px color-mix(in oklab, var(--accent) 70%, transparent);
+      border-color 150ms,
+      color 150ms;
   }
   .cta:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.05);
-    box-shadow: 0 10px 28px -8px color-mix(in oklab, var(--accent) 70%, transparent);
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   /* Hamburger button */
@@ -242,7 +239,6 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     width: min(320px, 84vw);
     background: var(--bg);
     border-left: 1px solid var(--border);
-    box-shadow: -20px 0 60px -20px color-mix(in oklab, var(--accent) 35%, transparent);
     padding: 1.15rem 1.5rem max(2rem, env(safe-area-inset-bottom));
     transform: translateX(100%);
     /* Delay visibility flip until the slide-out finishes. */

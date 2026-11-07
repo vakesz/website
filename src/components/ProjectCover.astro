@@ -29,7 +29,7 @@ const icon = imageStyle === "icon";
     justify-content: center;
     padding: 1.8rem;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius);
     background: var(--surface);
     overflow: hidden;
     transition: transform 0.2s;
@@ -41,7 +41,7 @@ const icon = imageStyle === "icon";
   }
   .screenshot :global(img) {
     width: 100%;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     box-shadow: 0 15px 26px -17px color-mix(in oklab, var(--ink) 50%, transparent);
   }
   .icon :global(img) {

@@ -1,34 +1,19 @@
 ---
 interface Props {
-  eyebrow?: string;
   title: string;
-  accented?: string;
   lede?: string;
   align?: "left" | "center";
 }
-const { eyebrow, title, accented, lede, align = "left" } = Astro.props;
+const { title, lede, align = "left" } = Astro.props;
 const hasLede = Boolean(lede) || Astro.slots.has("lede");
 ---
 
 <header class:list={["page-header", align]}>
-  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-  <h1>
-    {
-      accented ? (
-        <>
-          {title} <span class="accent">{accented}</span>
-        </>
-      ) : (
-        <span class="accent">{title}</span>
-      )
-    }
-  </h1>
-  {
-    hasLede && (
-      <p class="lede">
-        <slot name="lede">{lede}</slot>
-      </p>
-    )
-  }
+  <h1>{title}</h1>
+  {hasLede && (
+    <p class="lede">
+      <slot name="lede">{lede}</slot>
+    </p>
+  )}
   <slot />
 </header>

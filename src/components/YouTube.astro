@@ -13,7 +13,8 @@ const { id, title } = Astro.props;
     loading="lazy"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen></iframe>
+    allowfullscreen
+  ></iframe>
 </div>
 
 <style>
@@ -21,7 +22,7 @@ const { id, title } = Astro.props;
     position: relative;
     aspect-ratio: 16 / 9;
     margin: 1.75rem 0;
-    border-radius: 10px;
+    border-radius: var(--radius);
     overflow: hidden;
     background: var(--surface);
   }

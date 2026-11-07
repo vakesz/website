@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, sharpImageService } from "astro/config";
 import { SITE_ORIGIN } from "./site.config.mjs";
 import mdx from "@astrojs/mdx";
 import { unified } from "@astrojs/markdown-remark";
@@ -46,6 +46,14 @@ export default defineConfig({
       },
       wrap: true,
     },
+  },
+  image: {
+    // Sharp's defaults (AVIF 50, WebP 80) visibly smear photos, especially faces.
+    service: sharpImageService({
+      avif: { quality: 68 },
+      webp: { quality: 84 },
+      jpeg: { quality: 84, mozjpeg: true },
+    }),
   },
   build: {
     format: "directory",

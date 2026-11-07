@@ -9,15 +9,16 @@ const { post, headingLevel = 3 } = Astro.props;
 const Heading = `h${headingLevel}` as const;
 ---
 
-<a class="post-card" href={`/posts/${post.id}/`} aria-labelledby={`post-${post.id}-title`}
-  ><div class="post-meta">
-    <span>{post.data.tags[0] ?? "Notes"}</span><FormattedDate date={post.data.pubDate} short />
-  </div><div class="post-title">
-    <Heading id={`post-${post.id}-title`}>{post.data.title}</Heading><span aria-hidden="true"
-      >↗</span
-    >
-  </div><p>{post.data.description}</p></a
->
+<a class="post-card" href={`/posts/${post.id}/`} aria-labelledby={`post-${post.id}-title`}>
+  <div class="post-meta">
+    <span>{post.data.tags[0] ?? "Notes"}</span>
+    <FormattedDate date={post.data.pubDate} short />
+  </div>
+  <div class="post-title">
+    <Heading id={`post-${post.id}-title`}>{post.data.title}</Heading>
+  </div>
+  <p>{post.data.description}</p>
+</a>
 <style>
   .post-card {
     display: block;
@@ -51,14 +52,12 @@ const Heading = `h${headingLevel}` as const;
     line-height: 1.35;
     margin: 0;
   }
-  .post-title > span {
-    flex-shrink: 0;
-  }
   .post-card p {
     font-size: 0.925rem;
     line-height: 1.7;
     color: var(--muted);
-    margin: 0.65rem 2rem 0 0;
+    max-width: 65ch;
+    margin: 0.65rem 0 0;
   }
   .post-card:hover .post-title {
     color: var(--accent);

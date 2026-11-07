@@ -18,27 +18,31 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
     title: SITE.title,
     description: SITE.description,
   }}
-  width="wide"
 >
   <section class="hero">
     <div class="hero-copy">
-      <h1>{home.headline} <span class="accent">{home.headlineAccent}</span></h1><p
-        class="hero-lede"
-      >
-        {home.introduction}
-      </p><div class="hero-actions">
-        <a class="btn btn-primary" href="/posts/">Read the blog</a><a class="btn" href="/projects/"
-          >Portfolio</a
-        >
-      </div><div class="hero-links">
+      <h1>
+        {home.headline} <span class="accent">{home.headlineAccent}</span>
+      </h1>
+      <p class="hero-lede">{home.introduction}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/posts/">
+          Read the blog
+        </a>
+        <a class="btn" href="/projects/">
+          Projects
+        </a>
+      </div>
+      <div class="hero-links">
         <SocialLinks variant="inline" only={["github", "linkedin"]} />
       </div>
-    </div><figure class="hero-portrait">
+    </div>
+    <figure class="hero-portrait">
       <Picture
         src={me}
         alt="Gábor Pinkova on a forest trail"
-        widths={[320, 640]}
-        sizes="(max-width:760px) 200px, 290px"
+        widths={[320, 640, 960]}
+        sizes="(max-width:760px) 112px, 290px"
         formats={["avif", "webp"]}
         loading="eager"
         fetchpriority="high"
@@ -47,13 +51,29 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
   </section>
   <section class="section-block">
     <div class="section-heading">
-      <h2>Some of my work</h2><a class="text-link" href="/projects/">All projects</a>
-    </div><div class="grid-2">{projects.map((project) => <ProjectCard project={project} />)}</div>
+      <h2>Projects</h2>
+      <a class="text-link" href="/projects/">
+        All projects
+      </a>
+    </div>
+    <div class="grid-2">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
   </section>
   <section class="section-block">
     <div class="section-heading">
-      <h2>Writing</h2><a class="text-link" href="/posts/">All posts</a>
-    </div><div class="home-posts">{posts.map((post) => <PostCard post={post} />)}</div>
+      <h2>Writing</h2>
+      <a class="text-link" href="/posts/">
+        All posts
+      </a>
+    </div>
+    <div class="home-posts">
+      {posts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
   </section>
 </Base>
 <style>
@@ -99,8 +119,8 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
   .hero-portrait :global(img) {
     aspect-ratio: 4/5;
     object-fit: cover;
-    object-position: 59% 48%;
-    border-radius: 8px;
+    object-position: 50% 50%;
+    border-radius: var(--radius);
   }
   @media (max-width: 1000px) {
     .hero {
@@ -114,19 +134,21 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
   @media (max-width: 760px) {
     .hero {
       grid-template-columns: 1fr;
-      gap: 2rem;
-      padding-bottom: 3rem;
+      gap: 1.75rem;
+      padding: 0 0 3rem;
     }
     .hero h1 {
-      font-size: clamp(3.5rem, 14vw, 5rem);
+      font-size: clamp(2.75rem, 13vw, 4.5rem);
+      letter-spacing: -0.05em;
+      margin-bottom: 1.25rem;
     }
     .hero-portrait {
-      width: 200px;
-      grid-row: 2;
+      width: 112px;
+      grid-row: 1;
     }
     .hero-portrait :global(img) {
-      aspect-ratio: 5/4;
-      object-position: 60% 30%;
+      aspect-ratio: 1;
+      object-position: 50% 10%;
     }
     .hero-actions {
       gap: 1rem;

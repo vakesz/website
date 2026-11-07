@@ -1,6 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import ProjectCover from "./ProjectCover.astro";
 interface Props {
   project: CollectionEntry<"projects">;
   headingLevel?: 2 | 3;
@@ -10,78 +9,60 @@ const Heading = `h${headingLevel}` as const;
 const id = project.id;
 ---
 
-<a
-  href={`/projects/${id}/`}
-  class:list={["project-card", id, !project.data.cover && "text-only"]}
-  aria-labelledby={`project-${id}-title`}
->
-  {project.data.cover && <ProjectCover project={project} />}
-  <div class="project-details">
-    <div class="project-title">
-      <Heading id={`project-${id}-title`}>{project.data.title}</Heading><span aria-hidden="true"
-        >↗</span
-      >
-    </div><p class="project-description">{project.data.description}</p><ul
-      class="project-stack"
-      aria-label="Technology stack"
-    >
-      {project.data.stack.map((item) => <li>{item}</li>)}
-    </ul>
-  </div>
+<a href={`/projects/${id}/`} class="project-card" aria-labelledby={`project-${id}-title`}>
+  <p class="project-category">{project.data.category}</p>
+  <Heading id={`project-${id}-title`}>{project.data.title}</Heading>
+  <p class="project-description">{project.data.description}</p>
+  <p class="project-stack">
+    <span class="visually-hidden">Built with </span>
+    {project.data.stack.join(", ")}
+  </p>
 </a>
 <style>
   .project-card {
     display: block;
     min-width: 0;
-  }
-  .project-card:hover :global(.project-art) {
-    transform: translateY(-3px);
-  }
-  .project-details {
-    padding-top: 1.2rem;
-  }
-  .text-only {
+    padding-top: 1.25rem;
     border-top: 1px solid var(--border);
-    padding-top: 0.5rem;
+    transition: border-color 150ms;
   }
-  .project-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+  .project-card:hover {
+    border-top-color: var(--accent);
+    color: inherit;
   }
-  .project-title h2,
-  .project-title h3 {
+  .project-card:hover h2,
+  .project-card:hover h3 {
+    color: var(--accent);
+  }
+  .project-category {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin: 0 0 0.5rem;
+  }
+  h2,
+  h3 {
     font-size: 1.45rem;
     margin: 0;
-  }
-  .project-title > span {
-    font-size: 1.3rem;
+    transition: color 150ms;
   }
   .project-description {
     color: var(--muted);
     font-size: 0.95rem;
     line-height: 1.65;
     max-width: 48ch;
-    margin: 0.75rem 0 1rem;
+    margin: 0.75rem 0 0.9rem;
   }
   .project-stack {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 0.85rem;
-    padding: 0;
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--muted);
+    margin: 0;
   }
-  .project-stack li + li {
-    position: relative;
-  }
-  .project-stack li + li:before {
-    content: "·";
+  .visually-hidden {
     position: absolute;
-    left: -0.55rem;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 </style>

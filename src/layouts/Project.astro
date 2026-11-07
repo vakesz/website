@@ -9,46 +9,57 @@ const { project } = Astro.props;
 const { title, description, repo, homepage, stack, category, archived } = project.data;
 ---
 
-<Base metadata={{ kind: "page", title, description }} width="wide"
-  ><a class="back-link" href="/projects/">← Portfolio</a><article>
+<Base metadata={{ kind: "page", title, description }}>
+  <a class="back-link" href="/projects/">
+    ← Projects
+  </a>
+  <article>
     <header class="project-header">
-      <div><h1>{title}</h1><p class="lede">{description}</p></div><div class="project-actions">
-        {
-          homepage && (
-            <a class="btn btn-primary" href={homepage} target="_blank" rel="noopener noreferrer">
-              Visit website ↗
-            </a>
-          )
-        }{
-          repo && (
-            <a class="btn" href={repo} target="_blank" rel="noopener noreferrer">
-              Source code ↗
-            </a>
-          )
-        }
+      <div>
+        <h1>{title}</h1>
+        <p class="lede">{description}</p>
       </div>
-    </header>{project.data.cover && <ProjectCover project={project} large />}<div
-      class="project-body"
-    >
+      <div class="project-actions">
+        {homepage && (
+          <a class="btn btn-primary" href={homepage} target="_blank" rel="noopener noreferrer">
+            Visit website ↗
+          </a>
+        )}
+        {repo && (
+          <a class="btn" href={repo} target="_blank" rel="noopener noreferrer">
+            Source code ↗
+          </a>
+        )}
+      </div>
+    </header>
+    {project.data.cover && <ProjectCover project={project} large />}
+    <div class="project-body">
       <aside>
         <dl>
-          <div><dt>Project</dt><dd>{category}</dd></div><div>
-            <dt>Built with</dt><dd>{stack.join(", ")}</dd>
-          </div>{
-            archived && (
-              <div>
-                <>
-                  <dt>Status</dt>
-                  <dd>Archived</dd>
-                </>
-              </div>
-            )
-          }
+          <div>
+            <dt>Project</dt>
+            <dd>{category}</dd>
+          </div>
+          <div>
+            <dt>Built with</dt>
+            <dd>{stack.join(", ")}</dd>
+          </div>
+          {archived && (
+            <div>
+              <>
+                <dt>Status</dt>
+                <dd>Archived</dd>
+              </>
+            </div>
+          )}
         </dl>
-      </aside><div class="prose"><slot /></div>
+      </aside>
+      <div class="prose">
+        <slot />
+      </div>
     </div>
-  </article></Base
->
+  </article>
+</Base>
 <style>
   .project-header {
     display: flex;

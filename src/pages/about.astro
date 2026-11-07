@@ -4,21 +4,21 @@ import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PageHeader from "../components/PageHeader.astro";
 import SocialLinks from "../components/SocialLinks.astro";
-import wexlPhoto from "../assets/img/wexl.webp";
+import aboutPhoto from "../assets/img/about-bike.jpg";
 
 const entry = await getEntry("pages", "about");
 if (!entry) throw new Error("Missing src/content/pages/about.mdx");
 const { Content } = await render(entry);
-const { title, titleAccent, description, lede } = entry.data;
+const { title, description, lede } = entry.data;
 ---
 
-<Base metadata={{ kind: "page", title, description }} width="wide">
+<Base metadata={{ kind: "page", title, description }}>
   <section class="about-intro">
     <div class="about-photo">
       <Picture
-        src={wexlPhoto}
-        alt="Wexl Trails, Austria"
-        widths={[340, 520, 680]}
+        src={aboutPhoto}
+        alt="Gábor with his mountain bike next to a mountain lake"
+        widths={[360, 540, 768]}
         sizes="(max-width: 760px) 72vw, 340px"
         loading="eager"
         decoding="async"
@@ -26,7 +26,7 @@ const { title, titleAccent, description, lede } = entry.data;
       />
     </div>
 
-    <PageHeader title={title} accented={titleAccent} lede={lede}>
+    <PageHeader title={title} lede={lede}>
       <div class="about-social">
         <SocialLinks />
       </div>
@@ -61,8 +61,12 @@ const { title, titleAccent, description, lede } = entry.data;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 18px;
+    border-radius: var(--radius);
     border: 1px solid var(--border);
+  }
+
+  article.prose {
+    max-width: 65ch;
   }
 
   .about-social {

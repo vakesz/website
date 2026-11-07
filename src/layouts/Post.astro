@@ -28,70 +28,64 @@ const ogImage = `/og/${post.id}.png`;
     wordCount,
   }}
 >
-  <a class="back-link" href="/posts/">← Blog</a>
+  <a class="back-link" href="/posts/">
+    ← Blog
+  </a>
   <article class="prose post">
     <header class="post-header page-header">
       <h1>{title}</h1>
       <p class="post-meta">
         <FormattedDate date={pubDate} />
-        {
-          minutesRead && (
-            <>
-              <span class="dot" aria-hidden="true">
-                ·
-              </span>
-              <span>{minutesRead} min read</span>
-            </>
-          )
-        }
-        {
-          updatedDate && (
-            <>
-              <span class="dot" aria-hidden="true">
-                ·
-              </span>
-              <span>
-                updated <FormattedDate date={updatedDate} />
-              </span>
-            </>
-          )
-        }
+        {minutesRead && (
+          <>
+            <span class="dot" aria-hidden="true">
+              ·
+            </span>
+            <span>{minutesRead} min read</span>
+          </>
+        )}
+        {updatedDate && (
+          <>
+            <span class="dot" aria-hidden="true">
+              ·
+            </span>
+            <span>
+              updated <FormattedDate date={updatedDate} />
+            </span>
+          </>
+        )}
       </p>
     </header>
 
-    {
-      cover && (
-        <figure class="cover">
-          <Picture
-            src={cover.src}
-            alt={cover.alt}
-            widths={[640, 880, 1280, 1760]}
-            sizes="(max-width: 880px) 100vw, 880px"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-            formats={["avif", "webp"]}
-          />
-          {cover.caption && <figcaption>{cover.caption}</figcaption>}
-        </figure>
-      )
-    }
+    {cover && (
+      <figure class="cover">
+        <Picture
+          src={cover.src}
+          alt={cover.alt}
+          widths={[640, 880, 1280, 1760]}
+          sizes="(max-width: 880px) 100vw, 880px"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          formats={["avif", "webp"]}
+        />
+        {cover.caption && <figcaption>{cover.caption}</figcaption>}
+      </figure>
+    )}
 
     <div class="post-body">
       <slot />
     </div>
 
-    {
-      tags.length > 0 && (
-        <ul class="tag-list" aria-label="Tags">
-          {tags.map((t) => (
-            <li>
-              <a href={`/tags/${tagSlug(t)}/`}>#{t}</a>
-            </li>
-          ))}
-        </ul>
-      )
-    }
+    {tags.length > 0 && (
+      <ul class="tag-list" aria-label="Tags">
+        {tags.map((t) => (
+          <li>
+            <a href={`/tags/${tagSlug(t)}/`}>#{t}</a>
+          </li>
+        ))}
+      </ul>
+    )}
 
     <slot name="after" />
   </article>
@@ -99,6 +93,8 @@ const ogImage = `/og/${post.id}.png`;
 
 <style>
   .post {
+    /* Same left edge as every other page; keep the article at reading width. */
+    max-width: var(--content);
     /* Cover bleeds 0.5rem either side; contain any other accidental overflow. */
     overflow-x: clip;
   }
@@ -146,7 +142,7 @@ const ogImage = `/og/${post.id}.png`;
     font-size: 0.875rem;
     padding: 0.2rem 0.6rem;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: var(--radius-sm);
     color: var(--muted);
     text-decoration: none;
   }

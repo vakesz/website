@@ -8,10 +8,9 @@ import "../styles/global.css";
 
 interface Props {
   metadata: PageMetadata;
-  width?: "standard" | "wide";
 }
 
-const { metadata, width = "standard" } = Astro.props;
+const { metadata } = Astro.props;
 ---
 
 <!doctype html>
@@ -20,9 +19,11 @@ const { metadata, width = "standard" } = Astro.props;
     <BaseHead metadata={metadata} />
   </head>
   <body>
-    <a href="#main" class="skip-link">Skip to content</a>
+    <a href="#main" class="skip-link">
+      Skip to content
+    </a>
     <Header />
-    <main id="main" class={width === "wide" ? "content-wide" : "content"}>
+    <main id="main" class="content">
       <slot />
     </main>
     <Footer />

@@ -6,17 +6,21 @@ const year = new Date().getUTCFullYear();
 <footer class="site-footer">
   <div class="footer-inner">
     <div>
-      <a class="footer-brand" href="/">vakesz<span>.</span></a><p>
-        {`© ${year} ${SITE.author} · Budapest, Hungary`}
-      </p>
-    </div><nav aria-label="Footer">
-      <a href={SOCIAL.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a><a
-        href={SOCIAL.linkedin}
-        target="_blank"
-        rel="noopener noreferrer">LinkedIn ↗</a
-      ><a href={`mailto:${SITE.email}`}>Email ↗</a><a href="/rss.xml">RSS</a><a href="/admin/"
-        >Admin</a
-      >
+      <a class="footer-brand" href="/">
+        vakesz<span>.</span>
+      </a>
+      <p>{`© ${year} ${SITE.author}, Budapest, Hungary`}</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href={SOCIAL.github} target="_blank" rel="noopener noreferrer">
+        GitHub ↗
+      </a>
+      <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer">
+        LinkedIn ↗
+      </a>
+      <a href={`mailto:${SITE.email}`}>Email</a>
+      <a href="/rss.xml">RSS</a>
+      <a href="/admin/">Admin</a>
     </nav>
   </div>
 </footer>
