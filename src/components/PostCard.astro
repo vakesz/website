@@ -11,55 +11,68 @@ const Heading = `h${headingLevel}` as const;
 
 <a class="post-card" href={`/posts/${post.id}/`} aria-labelledby={`post-${post.id}-title`}>
   <div class="post-meta">
-    <span>{post.data.tags[0] ?? "Notes"}</span>
     <FormattedDate date={post.data.pubDate} short />
+    <span>{post.data.tags[0] ?? "notes"}</span>
   </div>
-  <div class="post-title">
+  <div class="post-copy">
     <Heading id={`post-${post.id}-title`}>{post.data.title}</Heading>
+    <p>{post.data.description}</p>
   </div>
-  <p>{post.data.description}</p>
 </a>
 <style>
+  /* Date gutter on the left, title and summary at reading width beside it.
+     Items are separated by space alone; no rules. */
   .post-card {
-    display: block;
-    padding: 1.55rem 0;
-    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 0 1.5rem;
+    align-items: baseline;
   }
-  .post-card:first-child {
-    padding-top: 0;
+  .post-card + :global(.post-card) {
+    margin-top: 2.75rem;
   }
   .post-meta {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.75rem;
-    font-family: var(--font-sans);
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
     color: var(--muted);
-    margin-bottom: 0.8rem;
   }
-  .post-meta > span {
-    letter-spacing: 0;
+  .post-meta :global(time) {
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
   }
-  .post-title {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  .post-title h2,
-  .post-title h3 {
+  h2,
+  h3 {
     font-size: 1.3rem;
     line-height: 1.35;
     margin: 0;
+    transition: color 150ms;
   }
-  .post-card p {
-    font-size: 0.925rem;
+  .post-card:hover h2,
+  .post-card:hover h3 {
+    color: var(--accent);
+  }
+  p {
+    font-size: 0.95rem;
     line-height: 1.7;
     color: var(--muted);
     max-width: 65ch;
-    margin: 0.65rem 0 0;
+    margin: 0.5rem 0 0;
   }
-  .post-card:hover .post-title {
-    color: var(--accent);
+  @media (max-width: 760px) {
+    .post-card {
+      grid-template-columns: 1fr;
+    }
+    .post-card + :global(.post-card) {
+      margin-top: 2.25rem;
+    }
+    .post-meta {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0 0.75rem;
+      margin-bottom: 0.4rem;
+    }
   }
 </style>
