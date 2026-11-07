@@ -196,8 +196,25 @@ main {
   gap: 2.6rem 2rem;
 }
 .section-block {
+  position: relative;
   padding: 4.3rem 0;
-  border-top: 1px solid var(--border);
+}
+/* Section break: three small accent dots, centred in the gap above the section. */
+.section-block::before {
+  --dot: 5px;
+  --dot-gap: 14px;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    calc(var(--dot-gap) * -1) 0 0 var(--accent),
+    var(--dot-gap) 0 0 var(--accent);
+  transform: translate(-50%, -50%);
 }
 .prose {
   font-size: 1.075rem;
