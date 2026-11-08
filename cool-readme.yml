@@ -1,0 +1,9 @@
+# Settings for .github/workflows/cool-readme.yml
+user: vakesz
+
+show: [summary, languages, weekly, streaks]
+
+look:
+  style: dotmatrix
+  color: amber
+  background: 0d0b07
