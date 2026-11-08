@@ -18,6 +18,33 @@ Before Sigma, I spent six years on automotive software at Continental, mostly C 
 - **[Drifting Thoughts](https://github.com/vakesz/Drifting-Thoughts)**: small iOS journal that turns a thought into a shareable card and keeps everything on the device. SwiftUI, SwiftData.
 - **[Dotfiles](https://github.com/vakesz/dotfiles)**: repeatable setup for macOS, Linux and WSL, built on GNU Stow and the XDG layout.
 
+### On GitHub
+
+<!-- cool-readme:start -->
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vakesz/vakesz/cards/summary-dark.svg">
+  <img src="https://raw.githubusercontent.com/vakesz/vakesz/cards/summary-light.svg" width="400" alt="Summary of public GitHub activity: commits, pull requests created and reviewed, issues and stars, for the last 12 months and all time, with the share of active days.">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vakesz/vakesz/cards/languages-dark.svg">
+  <img src="https://raw.githubusercontent.com/vakesz/vakesz/cards/languages-light.svg" width="400" alt="Most used programming languages in public repositories, weighted by commits in each.">
+</picture>
+</p>
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vakesz/vakesz/cards/weekly-dark.svg">
+  <img src="https://raw.githubusercontent.com/vakesz/vakesz/cards/weekly-light.svg" width="400" alt="Public contributions per weekday over the last 12 months, with the busiest and quietest days and the share made on weekdays.">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vakesz/vakesz/cards/streaks-dark.svg">
+  <img src="https://raw.githubusercontent.com/vakesz/vakesz/cards/streaks-light.svg" width="400" alt="Current and longest public contribution streaks, active days, and best day and month over the last 12 months.">
+</picture>
+</p>
+<!-- cool-readme:end -->
+
+<sub>Public work only, so the languages lean towards side projects rather than the C and C++ of my day job. Cards by [github-cool-readme](https://github.com/pedrocatalao/github-cool-readme).</sub>
+
 ### Writing
 
 I write at [vakesz.com](https://vakesz.com) when something is worth writing down.
