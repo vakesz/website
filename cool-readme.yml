@@ -4,6 +4,7 @@ user: vakesz
 show: [summary, languages, weekly, streaks]
 
 look:
-  style: dotmatrix
+  style: oled
   color: amber
-  background: 0d0b07
+  animations: false
+  background: none
