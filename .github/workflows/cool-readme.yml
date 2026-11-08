@@ -1,0 +1,60 @@
+# README cards, see https://github.com/pedrocatalao/github-cool-readme
+# The tool runs without push rights. A separate job publishes its SVGs.
+name: Update README cards
+
+on:
+  schedule:
+    - cron: "17 */6 * * *" # every 6 hours
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: pedrocatalao/github-cool-readme@4b5612f2aa2da65cc4012b3fb006b646abb33cf0 # v1.6.0
+        with:
+          token: ${{ github.token }}
+          output: ${{ runner.temp }}/cards
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cards
+          path: ${{ runner.temp }}/cards/*.svg
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: generate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: cards
+          path: ${{ runner.temp }}/cards
+      # The cards live on their own branch as a single commit replaced on each change.
+      # Cloudflare Pages only honours the skip marker as a commit message prefix.
+      - name: Publish the cards on the cards branch
+        run: |
+          git fetch --quiet --depth 1 origin cards:refs/remotes/origin/cards 2>/dev/null || true # not there on the first run
+          git switch --quiet --orphan cards
+          cp "$RUNNER_TEMP"/cards/*.svg .
+          git add -- *.svg
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit --quiet -m '[skip ci] Update README cards'
+          if git rev-parse --quiet --verify origin/cards >/dev/null && git diff --quiet origin/cards HEAD; then
+            echo "No changes"
+            exit 0
+          fi
+          git push --force origin cards
