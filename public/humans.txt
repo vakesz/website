@@ -11,7 +11,7 @@
   Components: Astro, MDX
   Software: pnpm, Prettier
   Hosting: Cloudflare Pages
-  Source: https://github.com/vakesz/vakesz
+  Source: https://github.com/vakesz/website
   Type: Static site (no tracking, no cookies, no consent banners)
 
 /* TYPOGRAPHY */
