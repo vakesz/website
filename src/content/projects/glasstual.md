@@ -9,7 +9,6 @@ imageStyle: icon
 repo: "https://github.com/vakesz/Glasstual"
 homepage: "https://vakesz.github.io/Glasstual/"
 stack: ["Swift", "SwiftUI", "AppKit", "IRCv3"]
-pinned: true
 order: 5
 ---
 

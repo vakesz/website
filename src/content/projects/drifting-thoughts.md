@@ -8,7 +8,6 @@ cover:
 imageStyle: icon
 repo: "https://github.com/vakesz/Drifting-Thoughts"
 stack: ["Swift", "SwiftUI", "SwiftData"]
-pinned: true
 order: 10
 ---
 
