@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 interface Props {
   project: CollectionEntry<"projects">;
@@ -7,9 +8,22 @@ interface Props {
 const { project, headingLevel = 3 } = Astro.props;
 const Heading = `h${headingLevel}` as const;
 const id = project.id;
+// Only app icons are small enough to sit in a card; screenshots stay on the detail page.
+const icon = project.data.imageStyle === "icon" ? project.data.cover : undefined;
 ---
 
 <a href={`/projects/${id}/`} class="project-card" aria-labelledby={`project-${id}-title`}>
+  {icon && (
+    <Picture
+      class="project-icon"
+      src={icon.src}
+      alt=""
+      widths={[64, 128]}
+      sizes="64px"
+      formats={["avif", "webp"]}
+      loading="lazy"
+    />
+  )}
   <p class="project-category">{project.data.category}</p>
   <Heading id={`project-${id}-title`}>{project.data.title}</Heading>
   <p class="project-description">{project.data.description}</p>
@@ -29,6 +43,17 @@ const id = project.id;
   .project-card:hover h2,
   .project-card:hover h3 {
     color: var(--accent);
+  }
+  .project-card :global(.project-icon) {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1.1rem;
+    border-radius: 13px;
+    filter: drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
+    transition: transform 200ms ease;
+  }
+  .project-card:hover :global(.project-icon) {
+    transform: translateY(-2px);
   }
   .project-category {
     font-size: 0.875rem;

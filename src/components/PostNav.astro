@@ -47,7 +47,9 @@ const { prev, next } = Astro.props;
     background: var(--surface);
     color: inherit;
     text-decoration: none;
-    transition: border-color 150ms;
+    transition:
+      border-color 150ms,
+      transform 150ms;
     min-width: 0;
   }
   .post-nav-link:hover,
@@ -57,6 +59,7 @@ const { prev, next } = Astro.props;
   }
   .post-nav-link:hover {
     border-color: var(--accent);
+    transform: translateY(-2px);
   }
   .post-nav-link.next {
     text-align: right;

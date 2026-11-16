@@ -90,6 +90,10 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     z-index: 20;
     backdrop-filter: saturate(1.4) blur(10px);
     -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    transition: border-color 200ms ease;
+  }
+  .site-header[data-at-top] {
+    border-bottom-color: transparent;
   }
   .wrap {
     max-width: var(--content-wide);
@@ -144,21 +148,35 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     padding: 0;
   }
   .nav-desktop a {
+    position: relative;
     color: var(--muted);
     text-decoration: none;
     font-size: 0.95rem;
     padding: 0.25rem 0;
-    border-bottom: 1px solid transparent;
-    transition:
-      color 150ms,
-      border-color 150ms;
+    transition: color 150ms;
+  }
+  /* Underline draws in from the left on hover; stays drawn on the current page. */
+  .nav-desktop a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms ease;
   }
   .nav-desktop a:hover {
     color: var(--ink);
   }
+  .nav-desktop a:hover::after,
+  .nav-desktop a[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
   .nav-desktop a[aria-current="page"] {
     color: var(--accent);
-    border-bottom-color: var(--accent);
   }
 
   .header-actions {
@@ -169,8 +187,8 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
   .cta {
     display: inline-flex;
     align-items: center;
-    min-height: 38px;
-    padding: 0.4rem 0.9rem;
+    min-height: 44px;
+    padding: 0.4rem 1rem;
     border-radius: var(--radius-sm);
     font-size: 0.88rem;
     font-weight: 600;
@@ -179,11 +197,15 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     text-decoration: none;
     transition:
       border-color 150ms,
-      color 150ms;
+      color 150ms,
+      transform 150ms;
   }
   .cta:hover {
     border-color: var(--accent);
     color: var(--accent);
+  }
+  .cta:active {
+    transform: scale(0.98);
   }
 
   /* Hamburger button */
