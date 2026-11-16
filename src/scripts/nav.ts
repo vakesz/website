@@ -95,3 +95,14 @@ function bindNav() {
 }
 
 bindNav();
+
+// Header rule only once the page has scrolled; without JS the rule stays on.
+function bindHeaderRule() {
+  const header = document.querySelector<HTMLElement>(".site-header");
+  if (!header) return;
+  const update = () => header.toggleAttribute("data-at-top", window.scrollY < 4);
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+}
+
+bindHeaderRule();

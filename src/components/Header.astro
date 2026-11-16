@@ -90,6 +90,10 @@ const isActiveNav = (href: string) => (href === "/" ? path === "/" : path.starts
     z-index: 20;
     backdrop-filter: saturate(1.4) blur(10px);
     -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    transition: border-color 200ms ease;
+  }
+  .site-header[data-at-top] {
+    border-bottom-color: transparent;
   }
   .wrap {
     max-width: var(--content-wide);

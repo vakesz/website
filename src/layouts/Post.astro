@@ -120,11 +120,19 @@ const ogImage = `/og/${post.id}.png`;
   .cover {
     margin: 2rem 0 3rem;
   }
+  .cover :global(picture) {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
   .cover :global(img) {
     width: 100%;
     height: auto;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
+    transition: transform 400ms ease;
+  }
+  .cover:hover :global(img) {
+    transform: scale(1.02);
   }
   .cover figcaption {
     margin-top: 0.5rem;

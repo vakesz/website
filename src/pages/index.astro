@@ -42,7 +42,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
         src={me}
         alt="Gábor Pinkova on a forest trail"
         widths={[320, 640, 960]}
-        sizes="(max-width:760px) 112px, 290px"
+        sizes="(max-width:760px) 112px, 340px"
         formats={["avif", "webp"]}
         loading="eager"
         fetchpriority="high"
@@ -79,7 +79,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
 <style>
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 290px;
+    grid-template-columns: minmax(0, 1fr) 340px;
     gap: 5rem;
     align-items: center;
     padding: 0.4rem 0 4.8rem;
@@ -127,7 +127,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
   @media (max-width: 1000px) {
     .hero {
       gap: 2.5rem;
-      grid-template-columns: minmax(0, 1fr) 250px;
+      grid-template-columns: minmax(0, 1fr) 280px;
     }
     .hero h1 {
       font-size: 4.8rem;
