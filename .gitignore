@@ -23,3 +23,6 @@ yarn-error.log*
 
 .vercel/
 .netlify/
+
+# Local design-skill state
+.taste-skill/

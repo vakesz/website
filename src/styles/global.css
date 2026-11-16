@@ -32,6 +32,21 @@ html[data-theme="dark"] {
   --selection-ink: #eff1ef;
   color-scheme: dark;
 }
+/* Without JavaScript no data-theme is set, so follow the system directly. */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    --bg: #141718;
+    --surface: #202526;
+    --ink: #eff1ef;
+    --muted: #a4acab;
+    --accent: #f19bc8;
+    --border: #363c3d;
+    --selection: #6b2a4c;
+    --selection-ink: #eff1ef;
+    color-scheme: dark;
+  }
+}
+
 * {
   box-sizing: border-box;
 }

@@ -1,12 +1,14 @@
 (function () {
   // Select the color theme before first paint, ahead of the bundled scripts.
+  // A saved choice wins; otherwise follow the system setting.
+  var prefersDark = false;
   try {
-    const saved = localStorage.getItem("theme");
-    const savedTheme = saved === "light" || saved === "dark" ? saved : null;
-    const prefersDark =
-      window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
-  } catch {
-    document.documentElement.dataset.theme = "light";
-  }
+    prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch {}
+  var saved = null;
+  try {
+    saved = localStorage.getItem("theme");
+  } catch {}
+  var theme = saved === "light" || saved === "dark" ? saved : prefersDark ? "dark" : "light";
+  document.documentElement.dataset.theme = theme;
 })();
