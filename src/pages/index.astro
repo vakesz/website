@@ -20,7 +20,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
   }}
 >
   <section class="hero">
-    <div class="hero-copy">
+    <div class="hero-copy" data-enter>
       <h1>
         {home.headline} <span class="accent">{home.headlineAccent}</span>
       </h1>
@@ -37,7 +37,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
         <SocialLinks variant="inline" only={["github", "linkedin"]} />
       </div>
     </div>
-    <figure class="hero-portrait">
+    <figure class="hero-portrait" data-enter>
       <Picture
         src={me}
         alt="Gábor Pinkova on a forest trail"
@@ -52,7 +52,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
   <section class="section-block">
     <div class="section-heading">
       <h2>Projects</h2>
-      <a class="text-link" href="/projects/">
+      <a class="text-link" href="/projects/" data-arrow>
         All projects
       </a>
     </div>
@@ -65,7 +65,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
   <section class="section-block">
     <div class="section-heading">
       <h2>Writing</h2>
-      <a class="text-link" href="/posts/">
+      <a class="text-link" href="/posts/" data-arrow>
         All posts
       </a>
     </div>
@@ -89,7 +89,7 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
     font-size: clamp(3.5rem, 7.2vw, 6rem);
     line-height: 0.98;
     margin: 0 0 1.6rem;
-    letter-spacing: -0.065em;
+    letter-spacing: -0.055em;
   }
   .hero-lede {
     font-size: 1.075rem;
@@ -109,7 +109,9 @@ const posts = (await loadPostCatalog()).posts.slice(0, 3);
     gap: 1.35rem;
     font-size: 0.8rem;
     color: var(--muted);
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
+    /* Pull the 44px tap targets left so the glyphs sit on the text edge. */
+    margin-left: -13px;
   }
   .hero-portrait {
     margin: 0;
