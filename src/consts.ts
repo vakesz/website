@@ -20,10 +20,10 @@ export const NAV = [
 
 export const SOCIAL = {
   github: "https://github.com/vakesz",
-  twitter: "https://twitter.com/vakeszqe",
+  twitter: "https://twitter.com/vakesz",
   linkedin: "https://linkedin.com/in/gabor-pinkova",
   instagram: "https://instagram.com/vakeszqe",
   youtube: "https://youtube.com/@vakeszqe",
 } as const;
 
-export const TWITTER_HANDLE = "@vakeszqe";
+export const TWITTER_HANDLE = "@vakesz";
